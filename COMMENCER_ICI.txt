@@ -1,0 +1,22 @@
+2Webp v0.8.0 — DOSSIER COMPLET PROPRE
+
+1. Ne fusionnez pas ce dossier avec une ancienne version.
+2. Renommez ou supprimez l'ancien dossier 2Webp.
+3. Placez ce dossier complet ici :
+
+   F:\OneDrive\Projet CLAUDE\2Webp
+
+4. Première installation uniquement :
+
+   powershell -ExecutionPolicy Bypass -File .\install.ps1
+
+5. Lancer l'application :
+
+   double-cliquer sur LANCER_2WEBP.bat
+
+6. Compiler l'exécutable :
+
+   double-cliquer sur COMPILER_2WEBP.bat
+
+Le résultat distribuable sera créé dans le dossier release.
+Le ZIP distribué sera accompagné de son empreinte SHA-256.
