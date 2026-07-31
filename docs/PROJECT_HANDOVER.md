@@ -104,7 +104,11 @@ Custom ne doit présenter que deux réglages :
 
 Le reste du parcours ne change pas. La destination, le bandeau, les notifications, le résultat de cinq secondes et les protections restent identiques.
 
-## 10. Ordre de reprise recommandé
+## 10. Validation de la version
+
+Voir `docs/VALIDATION_v0.8.0.md` pour distinguer les tests réellement exécutés des contrôles Windows restant à faire.
+
+## 11. Ordre de reprise recommandé
 
 1. `git status` ;
 2. lire `AGENTS.md` ;
