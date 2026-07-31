@@ -1,7 +1,5 @@
 param(
-  [string]$Repository = "birk6788/2Webp",
-  [ValidateSet("public", "private")]
-  [string]$Visibility = "public"
+  [string]$Repository = "birk6788/2Webp"
 )
 
 $ErrorActionPreference = "Stop"
@@ -21,32 +19,31 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 if ((git status --porcelain).Length -gt 0) {
-  throw "Le dépôt contient des modifications non commitée(s). Committez-les avant publication."
+  throw "Le dépôt contient des modifications non commitées."
 }
 
-$RemoteExists = $false
-gh repo view $Repository *> $null
+$RemoteUrl = "https://github.com/$Repository.git"
+$ExistingOrigin = git remote get-url origin 2>$null
 if ($LASTEXITCODE -eq 0) {
-  $RemoteExists = $true
+  git remote set-url origin $RemoteUrl
+} else {
+  git remote add origin $RemoteUrl
 }
 
-if (-not $RemoteExists) {
-  Write-Host "Création du dépôt $Repository..." -ForegroundColor Cyan
-  gh repo create $Repository `
-    --$Visibility `
-    --source . `
-    --remote origin `
-    --description "Convertisseur WebP local, libre et multilingue pour Windows"
-  if ($LASTEXITCODE -ne 0) { throw "Échec de création du dépôt GitHub." }
-} elseif (-not (git remote get-url origin 2>$null)) {
-  git remote add origin "https://github.com/$Repository.git"
+Write-Host "Synchronisation avec $Repository..." -ForegroundColor Cyan
+git fetch origin main --tags 2>$null
+
+# Le dépôt GitHub vient d'être initialisé avec un README. Le dépôt local est
+# l'historique de référence complet ; le remplacement de main est volontaire.
+git push --force-with-lease origin main
+if ($LASTEXITCODE -ne 0) {
+  throw "Échec du push de la branche main."
 }
 
-git push -u origin main
-if ($LASTEXITCODE -ne 0) { throw "Échec du push de main." }
-
-git push origin --tags
-if ($LASTEXITCODE -ne 0) { throw "Échec du push des tags." }
+git push origin --tags --force
+if ($LASTEXITCODE -ne 0) {
+  throw "Échec du push des tags."
+}
 
 Write-Host "Dépôt publié : https://github.com/$Repository" -ForegroundColor Green
-Write-Host "Le tag v$(Get-Content .\VERSION -Raw) déclenchera la release Windows." -ForegroundColor Green
+Write-Host "Le tag v0.8.0 déclenche la construction Windows et la Release GitHub." -ForegroundColor Green
