@@ -1,0 +1,21 @@
+[project]
+name = "2webp"
+version = "0.8.0"
+description = "Convertisseur WebP local pour Windows"
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" }
+authors = [
+  { name = "Jean-Philippe Bloch" }
+]
+dependencies = [
+  "Pillow>=11.0",
+  "PySide6>=6.8"
+]
+
+[project.optional-dependencies]
+build = ["pyinstaller>=6.0"]
+
+[tool.pyright]
+pythonVersion = "3.13"
+typeCheckingMode = "basic"

@@ -1,0 +1,29 @@
+{
+  "project": "2Webp",
+  "stable_version": "0.8.0",
+  "stable_tag": "v0.8.0",
+  "platform": "Windows 10/11 x64",
+  "author": "Jean-Philippe Bloch",
+  "license": "MIT",
+  "network_access": false,
+  "telemetry": false,
+  "input_formats": ["JPG", "JPEG", "PNG"],
+  "output_format": "WebP",
+  "languages": 22,
+  "preset_groups": ["wordpress", "prestashop"],
+  "next_feature": {
+    "name": "Custom",
+    "position": "after WordPress and PrestaShop",
+    "fields": [
+      "long edge dimension in pixels",
+      "WebP quality"
+    ],
+    "rest_of_workflow_unchanged": true
+  },
+  "release_assets": [
+    "2Webp-v0.8.0-portable.exe",
+    "2Webp-v0.8.0-windows-x64.zip",
+    "2Webp-v0.8.0-setup.exe",
+    "SHA256SUMS.txt"
+  ]
+}

@@ -1,10 +1,11 @@
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
 
-$Version = "0.8.0"
+$Version = (Get-Content .\VERSION -Raw).Trim()
 Write-Host "=== 2Webp v$Version ===" -ForegroundColor Cyan
 
 py -c "from PIL import Image; from PySide6.QtWidgets import QApplication; import PyInstaller; print('Dépendances OK')"
+py .\scripts\check_version.py
 py -m py_compile .\app.py .\core.py
 py .\tests\test_translations.py
 py .\tests\test_presets.py

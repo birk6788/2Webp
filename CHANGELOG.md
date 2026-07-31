@@ -13,6 +13,9 @@
 - Le récapitulatif inclut format, mode, qualité et destination.
 - Après conversion, le chemin réel est affiché pendant cinq secondes.
 - Icône Windows chargée depuis le fichier ICO multirésolution.
+- Dépôt Git autonome documenté pour une reprise sans contexte.
+- Pipeline GitHub Actions pour portable EXE, ZIP, installateur et SHA-256.
+- Roadmap Custom consignée.
 
 
 ## 0.7.9

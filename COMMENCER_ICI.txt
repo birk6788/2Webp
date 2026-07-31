@@ -1,22 +1,22 @@
-2Webp v0.8.0 — DOSSIER COMPLET PROPRE
+2Webp v0.8.0 — DÉMARRAGE
 
-1. Ne fusionnez pas ce dossier avec une ancienne version.
-2. Renommez ou supprimez l'ancien dossier 2Webp.
-3. Placez ce dossier complet ici :
-
-   F:\OneDrive\Projet CLAUDE\2Webp
-
-4. Première installation uniquement :
-
+UTILISATEUR
+1. Installer les dépendances :
    powershell -ExecutionPolicy Bypass -File .\install.ps1
+2. Lancer :
+   LANCER_2WEBP.bat
 
-5. Lancer l'application :
+DÉVELOPPEUR
+1. Lire AGENTS.md
+2. Lire docs\PROJECT_HANDOVER.md
+3. Vérifier : python scripts\check_version.py
+4. Tester : py app.py
+5. Compiler : COMPILER_2WEBP.bat
 
-   double-cliquer sur LANCER_2WEBP.bat
+RELEASE COMPLÈTE
+powershell -ExecutionPolicy Bypass -File .\scripts\build-release.ps1
 
-6. Compiler l'exécutable :
+PREMIÈRE PUBLICATION GITHUB
+PUBLISH_GITHUB.bat
 
-   double-cliquer sur COMPILER_2WEBP.bat
-
-Le résultat distribuable sera créé dans le dossier release.
-Le ZIP distribué sera accompagné de son empreinte SHA-256.
+La prochaine évolution prévue est la carte Custom décrite dans docs\ROADMAP.md.

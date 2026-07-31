@@ -1,0 +1,26 @@
+name: Évolution
+description: Proposer une amélioration ciblée
+title: "[Évolution] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Besoin utilisateur
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposition
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Contraintes respectées
+      options:
+        - label: Le traitement reste 100 % local
+          required: true
+        - label: Les originaux restent intacts
+          required: true

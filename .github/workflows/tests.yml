@@ -1,5 +1,13 @@
-name: tests
-on: [push, pull_request]
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: windows-latest
@@ -8,10 +16,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install -r requirements.txt
-      - run: python -m py_compile app.py core.py
-      - run: python tests/test_translations.py
-      - run: python tests/test_presets.py
-      - run: python tests/test_conversion.py
-      - run: python tests/smoke_test.py
-      - run: python tests/test_clean_branding.py
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Check version
+        run: python scripts/check_version.py
+      - name: Compile Python
+        run: python -m py_compile app.py core.py
+      - name: Run tests
+        shell: powershell
+        run: |
+          $tests = @(
+            "test_translations.py",
+            "test_presets.py",
+            "test_preset_ui.py",
+            "test_business_groups.py",
+            "test_conversion.py",
+            "test_conversion_ui.py",
+            "test_settings_ui.py",
+            "smoke_test.py",
+            "test_clean_branding.py",
+            "test_windows_icon.py"
+          )
+          foreach ($test in $tests) {
+            python ".\tests\$test"
+          }
