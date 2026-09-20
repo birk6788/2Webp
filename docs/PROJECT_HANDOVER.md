@@ -1,10 +1,10 @@
 # Reprise complète du projet 2Webp
 
-## État au 31 juillet 2026
+## État au 20 septembre 2026
 
-Version candidate : **0.8.5**
+Version en production : **0.8.5** (build Windows du 5 août 2026)
 Dernière version taguée : **v0.8.0**
-Branche de travail : **feature/v0.8.5-custom**
+Branche de travail : **main**
 Plateforme cible : **Windows 10 / 11 x64**
 Auteur : **Jean-Philippe Bloch**
 
@@ -100,16 +100,19 @@ Le build complet doit produire portable EXE, ZIP onedir, installateur et hashes.
 - le mode dossier lit les fichiers compatibles présents directement dans le dossier, pas les sous-dossiers ;
 - la version portable onefile peut démarrer plus lentement que la version installée.
 
-## 9. Validation v0.8.5 restante
+## 9. État de la v0.8.5
 
-1. synchroniser la branche locale ;
-2. lancer l'application sous Windows ;
-3. vérifier les trois cartes de workflow à 100 %, 125 % et 150 % ;
-4. vérifier que Custom garde exactement la hauteur et le rythme vertical des presets ;
-5. convertir une image avec 1800 px / qualité 82 ;
-6. redémarrer l'application et vérifier la persistance ;
-7. obtenir un build Windows vert ;
-8. fusionner sur `main` après validation humaine ;
-9. créer le tag v0.8.5 uniquement après validation.
+La v0.8.5 a été construite le 5 août 2026 et installée en production
+(`%LOCALAPPDATA%\Programs\2Webp`). Le code correspondant est sur `main`.
+Les douze tests automatisés passent sur Python 3.14.
+
+Reste administratif : tag Git `v0.8.5` et release GitHub associée.
+
+## 10. Ordre de reprise
+
+1. `git status` dans le dépôt ;
+2. lire `AGENTS.md` ;
+3. exécuter les douze tests ;
+4. créer une branche dédiée avant toute modification.
 
 Voir `docs/VALIDATION_v0.8.0.md` pour l'historique de validation de la base précédente.

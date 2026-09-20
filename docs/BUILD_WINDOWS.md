@@ -3,7 +3,7 @@
 ## Prérequis
 
 - Windows 10 ou 11 x64 ;
-- Python 3.13 ;
+- Python 3.14 ;
 - pip ;
 - Inno Setup 6 pour l'installateur complet.
 

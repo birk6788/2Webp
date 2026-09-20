@@ -1,6 +1,6 @@
 # Roadmap
 
-## Candidate — v0.8.5
+## Livrée — v0.8.5
 
 - WordPress / Web ;
 - PrestaShop ;
@@ -14,15 +14,14 @@
 - build portable, ZIP et installateur ;
 - documentation de reprise complète.
 
-## Validation restante pour v0.8.5
+## État de la v0.8.5
 
-- test visuel Windows à 100 %, 125 % et 150 % ;
-- contrôle du passage WordPress → PrestaShop → Custom ;
-- contrôle de la saisie 1800 px / qualité 82 ;
-- contrôle du footer avant conversion ;
-- contrôle d'une conversion réelle et de la persistance après redémarrage ;
-- build Windows vert ;
-- validation humaine avant merge et tag.
+La v0.8.5 a été construite le 5 août 2026 (portable, ZIP, installateur) et
+est installée et utilisée en production. Le code correspondant est sur `main`.
+
+Reste administratif :
+
+- tag Git `v0.8.5` et release GitHub associée.
 
 ## Après Custom
 

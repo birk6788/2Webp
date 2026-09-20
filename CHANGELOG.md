@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.8.5 — candidate
+## 0.8.5 — en production depuis le 5 août 2026
 
 - ajout du troisième workflow **Custom** ;
 - réglage direct du bord long, de 100 à 10 000 px ;

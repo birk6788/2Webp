@@ -62,7 +62,7 @@ Le mode Bord long ne redimensionne jamais une image déjà plus petite.
 
 ## Installation depuis les sources
 
-Prérequis : Windows 10 ou 11 et Python 3.13 recommandé.
+Prérequis : Windows 10 ou 11 et Python 3.14 recommandé.
 
 ```powershell
 py -m pip install -r requirements.txt

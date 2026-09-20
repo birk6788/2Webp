@@ -44,7 +44,7 @@ if (Get-Command py -ErrorAction SilentlyContinue) {
 } elseif (Get-Command python -ErrorAction SilentlyContinue) {
     $PythonCommand = "python"
 } else {
-    throw "Python est introuvable. Installe Python 3.13 ou ajoute-le au PATH."
+    throw "Python est introuvable. Installe Python 3.14 ou ajoute-le au PATH."
 }
 
 $VenvPython = Join-Path $Root ".venv\Scripts\python.exe"
@@ -53,9 +53,9 @@ if (-not (Test-Path $VenvPython)) {
     Write-Host "Création de l'environnement virtuel .venv..." -ForegroundColor Yellow
 
     if ($PythonCommand -eq "py") {
-        & py -3.13 -m venv ".venv"
+        & py -3.14 -m venv ".venv"
         if ($LASTEXITCODE -ne 0) {
-            Write-Warning "Python 3.13 non trouvé via py -3.13, tentative avec Python par défaut."
+            Write-Warning "Python 3.14 non trouvé via py -3.14, tentative avec Python par défaut."
             & py -m venv ".venv"
         }
     } else {

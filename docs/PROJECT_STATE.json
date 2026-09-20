@@ -1,9 +1,9 @@
 {
   "project": "2Webp",
-  "stable_version": "0.8.0",
+  "stable_version": "0.8.5",
   "development_version": "0.8.5",
-  "development_branch": "feature/v0.8.5-custom",
-  "release_status": "pending Windows visual validation and final tag",
+  "development_branch": "main",
+  "release_status": "0.8.5 built and running in production since 2026-08-05",
   "platform": "Windows 10/11 x64",
   "author": "Jean-Philippe Bloch",
   "license": "MIT",

@@ -50,7 +50,7 @@ Interdit sans décision explicite documentée :
 
 ## 4. Stack
 
-- Python 3.13 recommandé ;
+- Python 3.14 recommandé ;
 - PySide6 ;
 - Pillow ;
 - PyInstaller ;
