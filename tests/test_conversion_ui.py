@@ -25,4 +25,4 @@ assert "result_finished.connect(self._update_status)" in text
 assert "footer.setFixedHeight(50)" in text
 assert "self.setMinimumHeight(258)" in text
 
-print("OK: V0.8.0 conversion layout, destination and temporary result")
+print("OK: V0.8.5 conversion layout, destination and temporary result")

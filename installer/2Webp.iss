@@ -1,5 +1,5 @@
 #ifndef MyAppVersion
-  #define MyAppVersion "0.8.0"
+  #define MyAppVersion "0.8.5"
 #endif
 
 #define MyAppName "2Webp"

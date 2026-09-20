@@ -1,7 +1,14 @@
-2Webp v0.8.0 — DÉMARRAGE
+2Webp v0.8.5 — CORRECTIF UI PRESTASHOP
+
+2Webp v0.8.5 — VERSION COMPLÈTE
+
+NOUVEAUTÉ
+- Mode Custom ajouté après WordPress / Web et PrestaShop.
+- Deux réglages seulement : bord long en pixels et qualité WebP.
+- Design, hauteurs, espacements, zone de dépôt et footer conservés.
 
 UTILISATEUR
-1. Installer les dépendances :
+1. Installer les dépendances si nécessaire :
    powershell -ExecutionPolicy Bypass -File .\install.ps1
 2. Lancer :
    LANCER_2WEBP.bat
@@ -10,13 +17,8 @@ DÉVELOPPEUR
 1. Lire AGENTS.md
 2. Lire docs\PROJECT_HANDOVER.md
 3. Vérifier : python scripts\check_version.py
-4. Tester : py app.py
+4. Tester : python app.py
 5. Compiler : COMPILER_2WEBP.bat
 
 RELEASE COMPLÈTE
 powershell -ExecutionPolicy Bypass -File .\scripts\build-release.ps1
-
-PREMIÈRE PUBLICATION GITHUB
-PUBLISH_GITHUB.bat
-
-La prochaine évolution prévue est la carte Custom décrite dans docs\ROADMAP.md.

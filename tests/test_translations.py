@@ -16,3 +16,18 @@ for file in files:
         ref_placeholders={field for _,field,_,_ in string.Formatter().parse(ref_data[key]) if field}
         assert placeholders==ref_placeholders, f"Placeholder mismatch {file.name}:{key}"
 print(f"OK: {len(files)} translations, {len(reference)} keys")
+
+custom=json.loads((root/'translations'/'custom.json').read_text(encoding='utf-8'))
+assert set(custom)=={file.stem for file in files}
+custom_keys=None
+for code,values in custom.items():
+    assert values and all(isinstance(value,str) and value.strip() for value in values.values()), code
+    if custom_keys is None:
+        custom_keys=set(values)
+    assert set(values)==custom_keys, f"Custom key mismatch: {code}"
+assert custom_keys=={
+    'custom_title','custom_desc','choose_custom',
+    'custom_dimension_title','custom_dimension_desc',
+    'custom_quality_title','custom_quality_desc',
+}
+print(f"OK: Custom translated in {len(custom)} languages")

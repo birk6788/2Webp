@@ -1,28 +1,26 @@
-# 2Webp v0.8.0 — Notes de version
+# 2Webp v0.8.5 — Notes de version
 
-2Webp v0.8.0 consolide le parcours de conversion et la présentation Windows.
+2Webp v0.8.5 ajoute le mode **Custom** au même niveau que WordPress / Web et PrestaShop.
 
-## Points principaux
+## Nouveau
 
-- interface plus compacte sans réduire les cartes de presets ;
-- dimensions des presets remises en avant ;
-- zone de dépôt plus importante ;
-- destination de sortie personnalisable et mémorisée ;
-- résumé avant conversion avec dimensions, mode, qualité et destination ;
-- confirmation temporaire de cinq secondes après conversion ;
-- chemin réel de destination affiché après conversion ;
-- icône Windows multirésolution ;
-- 22 langues ;
-- huit presets modifiables ;
-- noms WordPress / PrestaShop personnalisables.
+- saisie directe du bord long en pixels ;
+- saisie directe de la qualité WebP ;
+- valeurs mémorisées entre deux ouvertures ;
+- valeurs par défaut : 1800 px et qualité 82 ;
+- aucune modification du choix de destination, du glisser-déposer ou du résultat de conversion ;
+- traductions Custom ajoutées aux 22 langues.
 
-## Fichiers de release prévus
+## Fichiers Windows attendus
 
-- `2Webp-v0.8.0-portable.exe` ;
-- `2Webp-v0.8.0-windows-x64.zip` ;
-- `2Webp-v0.8.0-setup.exe` ;
+- `2Webp-v0.8.5-portable.exe` ;
+- `2Webp-v0.8.5-windows-x64.zip` ;
+- `2Webp-v0.8.5-setup.exe` ;
 - `SHA256SUMS.txt`.
 
 ## Sécurité
 
-Les binaires sont non signés tant qu'aucun certificat de signature de code n'est configuré. Windows SmartScreen peut afficher un avertissement lors du premier lancement.
+Les binaires restent non signés tant qu’aucun certificat de signature de code n’est configuré. Windows SmartScreen peut afficher un avertissement au premier lancement.
+
+- Splash de démarrage 2Webp sur la version portable onefile.
+- Correction des chemins absolus PyInstaller avec `--specpath`.

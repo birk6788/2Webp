@@ -9,8 +9,9 @@ from pathlib import Path
 from PySide6.QtCore import QEvent, QObject, QStandardPaths, QThread, Qt, Signal, QTimer
 from PySide6.QtGui import QIcon, QIntValidator, QPixmap
 from core import (
-    BusinessGroup, GROUP_TITLE_KEYS, PRESET_TITLE_KEYS, Preset, clone_default_business_groups,
-    clone_defaults, convert_one, iter_image_files,
+    BusinessGroup, DEFAULT_CUSTOM_QUALITY, DEFAULT_CUSTOM_WIDTH, GROUP_TITLE_KEYS,
+    PRESET_TITLE_KEYS, Preset, clone_default_business_groups, clone_defaults,
+    convert_one, create_custom_preset, iter_image_files,
 )
 
 from PySide6.QtWidgets import (
@@ -21,7 +22,7 @@ from PySide6.QtWidgets import (
 )
 
 APP_NAME = "2Webp"
-APP_VERSION = "0.8.0"
+APP_VERSION = "0.8.5"
 
 
 def app_icon_path() -> Path:
@@ -80,7 +81,18 @@ class Translator:
         self.data = self._load(self.language)
 
     def _load(self, code: str) -> dict[str, str]:
-        return json.loads((resource_dir()/"translations"/f"{code}.json").read_text(encoding="utf-8"))
+        data = json.loads(
+            (resource_dir()/"translations"/f"{code}.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        custom_path = resource_dir()/"translations"/"custom.json"
+        if custom_path.exists():
+            custom = json.loads(custom_path.read_text(encoding="utf-8"))
+            additions = custom.get(code, {})
+            if isinstance(additions, dict):
+                data.update(additions)
+        return data
 
     def set_language(self, code: str) -> None:
         if code not in self.names:
@@ -140,6 +152,34 @@ def save_output_directory(directory: Path | None) -> None:
         data.pop("output_directory", None)
     else:
         data["output_directory"] = str(directory)
+    save_settings_data(data)
+
+
+def load_custom_export() -> tuple[int, int]:
+    raw = load_settings_data().get("custom_export", {})
+    if not isinstance(raw, dict):
+        return DEFAULT_CUSTOM_WIDTH, DEFAULT_CUSTOM_QUALITY
+
+    try:
+        width = int(raw.get("width", DEFAULT_CUSTOM_WIDTH))
+    except (TypeError, ValueError):
+        width = DEFAULT_CUSTOM_WIDTH
+    try:
+        quality = int(raw.get("quality", DEFAULT_CUSTOM_QUALITY))
+    except (TypeError, ValueError):
+        quality = DEFAULT_CUSTOM_QUALITY
+
+    preset = create_custom_preset(width, quality)
+    return preset.width, preset.quality
+
+
+def save_custom_export(width: int, quality: int) -> None:
+    preset = create_custom_preset(width, quality)
+    data = load_settings_data()
+    data["custom_export"] = {
+        "width": preset.width,
+        "quality": preset.quality,
+    }
     save_settings_data(data)
 
 
@@ -577,6 +617,12 @@ class PresetCard(QFrame):
         self.size_label.setObjectName("presetSize")
         self.mode_label = QLabel("")
         self.mode_label.setObjectName("presetMode")
+        # Le texte métier ne doit jamais imposer la largeur de la carte.
+        self.mode_label.setMinimumWidth(0)
+        self.mode_label.setSizePolicy(
+            QSizePolicy.Policy.Ignored,
+            QSizePolicy.Policy.Preferred,
+        )
 
         dimensions_row.addWidget(self.size_label)
         dimensions_row.addWidget(
@@ -587,6 +633,8 @@ class PresetCard(QFrame):
 
         self.detail_label = QLabel("")
         self.detail_label.setObjectName("presetDetail")
+        self.detail_label.setWordWrap(True)
+        self.detail_label.setMinimumWidth(0)
 
         layout.addWidget(self.radio)
         layout.addLayout(dimensions_row)
@@ -608,13 +656,21 @@ class PresetCard(QFrame):
             )
 
         self.size_label.setText(size)
-        self.mode_label.setText("· " + self.tr.text(mode_key))
-        self.detail_label.setText(
-            self.tr.text(
-                "quality_label",
-                quality=self.preset.quality,
-            )
+        mode_text = self.tr.text(mode_key)
+        quality_text = self.tr.text(
+            "quality_label",
+            quality=self.preset.quality,
         )
+
+        # Les dimensions PrestaShop sont nettement plus longues que les
+        # dimensions WordPress. Le mode passe donc sur la ligne de détail
+        # afin que les quatre cartes restent dans la largeur disponible.
+        if self.preset.key.startswith("ps-"):
+            self.mode_label.clear()
+            self.detail_label.setText(f"{mode_text} · {quality_text}")
+        else:
+            self.mode_label.setText("· " + mode_text)
+            self.detail_label.setText(quality_text)
 
     def mousePressEvent(self, event):
         self.clicked.emit(self.preset)
@@ -709,6 +765,84 @@ class PresetEditorCard(QFrame):
         )
 
 
+class CustomFieldCard(QFrame):
+    changed = Signal()
+    committed = Signal()
+
+    def __init__(
+        self,
+        value: int,
+        minimum: int,
+        maximum: int,
+        suffix: str,
+    ):
+        super().__init__()
+        self.minimum = minimum
+        self.maximum = maximum
+        self.setObjectName("customFieldCard")
+        self.setFixedHeight(124)
+        self.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Fixed,
+        )
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(16, 12, 16, 12)
+        layout.setSpacing(4)
+
+        self.title = QLabel("")
+        self.title.setObjectName("customFieldTitle")
+
+        value_row = QHBoxLayout()
+        value_row.setContentsMargins(0, 0, 0, 0)
+        value_row.setSpacing(7)
+
+        self.input = QLineEdit(str(value))
+        self.input.setObjectName("customValueInput")
+        self.input.setValidator(QIntValidator(minimum, maximum, self.input))
+        self.input.setAlignment(Qt.AlignmentFlag.AlignRight)
+        self.input.setFixedWidth(132)
+        self.input.setClearButtonEnabled(True)
+
+        self.suffix = QLabel(suffix)
+        self.suffix.setObjectName("customValueSuffix")
+
+        value_row.addWidget(self.input)
+        value_row.addWidget(
+            self.suffix,
+            alignment=Qt.AlignmentFlag.AlignBottom,
+        )
+        value_row.addStretch()
+
+        self.description = QLabel("")
+        self.description.setObjectName("customFieldDescription")
+        self.description.setWordWrap(True)
+
+        layout.addWidget(self.title)
+        layout.addLayout(value_row)
+        layout.addWidget(self.description)
+        layout.addStretch()
+
+        self.input.textChanged.connect(self.changed)
+        self.input.editingFinished.connect(self.committed)
+
+    def set_texts(self, title: str, description: str) -> None:
+        self.title.setText(title)
+        self.description.setText(description)
+
+    def value(self, fallback: int) -> int:
+        try:
+            value = int(self.input.text().strip())
+        except ValueError:
+            value = fallback
+        return max(self.minimum, min(self.maximum, value))
+
+    def normalize(self, fallback: int) -> int:
+        value = self.value(fallback)
+        self.input.setText(str(value))
+        return value
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -720,6 +854,11 @@ class MainWindow(QMainWindow):
             self.setWindowIcon(QIcon(str(icon)))
         self.presets=load_presets()
         self.business_groups=load_business_groups()
+        self.custom_width,self.custom_quality=load_custom_export()
+        self.custom_preset=create_custom_preset(
+            self.custom_width,
+            self.custom_quality,
+        )
         self.mode="wordpress"
         self.selected_preset=self.presets["wordpress"][2]
         self.preset_cards=[]
@@ -817,11 +956,14 @@ class MainWindow(QMainWindow):
         modes.setSpacing(12)
         self.wp_button = ModeCard("wordpress")
         self.ps_button = ModeCard("prestashop")
+        self.custom_button = ModeCard("custom")
         self.wp_button.set_selected(True)
         self.wp_button.clicked.connect(self._set_mode)
         self.ps_button.clicked.connect(self._set_mode)
+        self.custom_button.clicked.connect(self._set_mode)
         modes.addWidget(self.wp_button)
         modes.addWidget(self.ps_button)
+        modes.addWidget(self.custom_button)
         layout.addLayout(modes)
 
         # Le titre d’usage est directement rattaché aux presets.
@@ -836,6 +978,33 @@ class MainWindow(QMainWindow):
         self.preset_grid.setContentsMargins(0, 0, 0, 0)
         self.preset_grid.setHorizontalSpacing(12)
         layout.addWidget(self.preset_widget)
+
+        self.custom_widget = QWidget()
+        custom_grid = QGridLayout(self.custom_widget)
+        custom_grid.setContentsMargins(0, 0, 0, 0)
+        custom_grid.setHorizontalSpacing(12)
+        custom_grid.setVerticalSpacing(0)
+
+        self.custom_width_card = CustomFieldCard(
+            self.custom_width,
+            100,
+            10000,
+            "px",
+        )
+        self.custom_quality_card = CustomFieldCard(
+            self.custom_quality,
+            1,
+            100,
+            "/ 100",
+        )
+        self.custom_width_card.changed.connect(self._custom_values_changed)
+        self.custom_quality_card.changed.connect(self._custom_values_changed)
+        self.custom_width_card.committed.connect(self._commit_custom_values)
+        self.custom_quality_card.committed.connect(self._commit_custom_values)
+        custom_grid.addWidget(self.custom_width_card, 0, 0)
+        custom_grid.addWidget(self.custom_quality_card, 0, 1)
+        self.custom_widget.hide()
+        layout.addWidget(self.custom_widget)
 
         # Séparation nette entre le choix technique et l’action de conversion.
         layout.addSpacing(18)
@@ -939,9 +1108,13 @@ class MainWindow(QMainWindow):
         return page
 
     def _business_display_name(self, group: str) -> str:
+        if group == "custom":
+            return self.tr.text("custom_title")
         return self.business_groups[group].display_title(self.tr)
 
     def _choose_usage_text(self) -> str:
+        if self.mode == "custom":
+            return self.tr.text("choose_custom")
         return self.tr.text(
             "choose_usage",
             name=self._business_display_name(self.mode),
@@ -1043,7 +1216,41 @@ class MainWindow(QMainWindow):
 
         return result
     def _restore_selected(self):
+        if self.mode == "custom":
+            self._sync_custom_preset()
+            return
         key=self.selected_preset.key; self.selected_preset=next((p for p in self.presets[self.mode] if p.key==key),self.presets[self.mode][0])
+
+    def _sync_custom_preset(self, persist: bool = False) -> None:
+        self.custom_preset=create_custom_preset(
+            self.custom_width,
+            self.custom_quality,
+        )
+        if self.mode == "custom":
+            self.selected_preset=self.custom_preset
+        if persist:
+            save_custom_export(
+                self.custom_preset.width,
+                self.custom_preset.quality,
+            )
+        if hasattr(self, "status"):
+            self._update_status()
+
+    def _custom_values_changed(self) -> None:
+        if not (
+            self.custom_width_card.input.hasAcceptableInput()
+            and self.custom_quality_card.input.hasAcceptableInput()
+        ):
+            return
+        self.custom_width=self.custom_width_card.value(self.custom_width)
+        self.custom_quality=self.custom_quality_card.value(self.custom_quality)
+        self._sync_custom_preset()
+
+    def _commit_custom_values(self) -> None:
+        self.custom_width=self.custom_width_card.normalize(self.custom_width)
+        self.custom_quality=self.custom_quality_card.normalize(self.custom_quality)
+        self._sync_custom_preset(persist=True)
+
     def _save_settings(self):
         self.presets=self._collect_settings()
         self.business_groups=self._collect_business_groups()
@@ -1062,9 +1269,17 @@ class MainWindow(QMainWindow):
     def _reset_settings(self):
         self.presets=clone_defaults()
         self.business_groups=clone_default_business_groups()
+        self.custom_width=DEFAULT_CUSTOM_WIDTH
+        self.custom_quality=DEFAULT_CUSTOM_QUALITY
         save_presets(self.presets)
         save_business_groups(self.business_groups)
-        self.selected_preset=self.presets[self.mode][0]
+        save_custom_export(self.custom_width,self.custom_quality)
+        self.custom_width_card.input.setText(str(self.custom_width))
+        self.custom_quality_card.input.setText(str(self.custom_quality))
+        if self.mode == "custom":
+            self._sync_custom_preset()
+        else:
+            self.selected_preset=self.presets[self.mode][0]
         self._render_settings()
         self._render_presets()
         self._retranslate_ui()
@@ -1111,6 +1326,18 @@ class MainWindow(QMainWindow):
             self._business_display_name("prestashop"),
             self.tr.text("ps_desc"),
         )
+        self.custom_button.set_texts(
+            self.tr.text("custom_title"),
+            self.tr.text("custom_desc"),
+        )
+        self.custom_width_card.set_texts(
+            self.tr.text("custom_dimension_title"),
+            self.tr.text("custom_dimension_desc"),
+        )
+        self.custom_quality_card.set_texts(
+            self.tr.text("custom_quality_title"),
+            self.tr.text("custom_quality_desc"),
+        )
         self.drop_zone.title.setText(self.tr.text("drop_title"))
         self.drop_zone.description.setText(self.tr.text("drop_desc"))
         self.drop_zone.choose_button.setText(self.tr.text("choose_files"))
@@ -1127,9 +1354,15 @@ class MainWindow(QMainWindow):
     def _show_page(self,index): self.pages.setCurrentIndex(index)
     def _set_mode(self,mode):
         self.mode=mode
-        self.selected_preset=self.presets[mode][0]
+        if mode == "custom":
+            self._sync_custom_preset()
+        else:
+            self.selected_preset=self.presets[mode][0]
         self.wp_button.set_selected(mode=="wordpress")
         self.ps_button.set_selected(mode=="prestashop")
+        self.custom_button.set_selected(mode=="custom")
+        self.preset_widget.setVisible(mode!="custom")
+        self.custom_widget.setVisible(mode=="custom")
         self.preset_label.setText(self._choose_usage_text())
         self._render_presets()
     def _render_presets(self):
@@ -1137,8 +1370,17 @@ class MainWindow(QMainWindow):
             item=self.preset_grid.takeAt(0)
             if item.widget(): item.widget().deleteLater()
         self.preset_cards=[]
+        if self.mode == "custom":
+            self._update_status()
+            return
         for index,preset in enumerate(self.presets[self.mode]):
-            card=PresetCard(preset,self.tr); card.clicked.connect(self._select_preset); card.set_selected(preset.key==self.selected_preset.key); self.preset_cards.append(card); self.preset_grid.addWidget(card,0,index)
+            card=PresetCard(preset,self.tr)
+            card.setMinimumWidth(0)
+            card.clicked.connect(self._select_preset)
+            card.set_selected(preset.key==self.selected_preset.key)
+            self.preset_cards.append(card)
+            self.preset_grid.addWidget(card,0,index)
+            self.preset_grid.setColumnStretch(index, 1)
         self._update_status()
     def _select_preset(self,preset):
         self.selected_preset=preset
@@ -1527,7 +1769,7 @@ class MainWindow(QMainWindow):
             font-size:13px;
             font-weight:720;
         }
-        QFrame#presetCard, QFrame#editorCard { background:#171A21; border:1px solid rgba(255,255,255,0.09); border-radius:15px; }
+        QFrame#presetCard, QFrame#editorCard, QFrame#customFieldCard { background:#171A21; border:1px solid rgba(255,255,255,0.09); border-radius:15px; }
         QFrame#presetCard:hover { background:#1D212A; border:1px solid rgba(255,255,255,0.17); }
         QFrame#presetCard[selected="true"] { background:rgba(255,107,44,0.10); border:1px solid rgba(255,107,44,0.72); }
         QRadioButton#presetRadio {
@@ -1553,6 +1795,34 @@ class MainWindow(QMainWindow):
             font-weight:850;
         }
         QLabel#presetMode, QLabel#presetDetail {
+            color:#B5BCC8;
+            font-size:12px;
+            font-weight:650;
+        }
+        QLabel#customFieldTitle {
+            color:#F7F8FA;
+            font-size:15px;
+            font-weight:780;
+        }
+        QLineEdit#customValueInput {
+            min-height:36px;
+            background:#101319;
+            border:1px solid rgba(255,255,255,0.12);
+            border-radius:9px;
+            padding:0 10px;
+            font-size:25px;
+            font-weight:850;
+        }
+        QLineEdit#customValueInput:focus {
+            border:1px solid #FF6B2C;
+        }
+        QLabel#customValueSuffix {
+            color:#B5BCC8;
+            font-size:13px;
+            font-weight:700;
+            padding-bottom:5px;
+        }
+        QLabel#customFieldDescription {
             color:#B5BCC8;
             font-size:12px;
             font-weight:650;
@@ -1723,6 +1993,15 @@ def main():
 
     window=MainWindow()
     window.show()
+
+    # Ferme le splash PyInstaller uniquement quand la fenêtre principale est prête.
+    try:
+        import pyi_splash
+        if pyi_splash.is_alive():
+            pyi_splash.close()
+    except (ImportError, RuntimeError, ConnectionError):
+        pass
+
     sys.exit(app.exec())
 
 

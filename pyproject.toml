@@ -1,6 +1,6 @@
 [project]
 name = "2webp"
-version = "0.8.0"
+version = "0.8.5"
 description = "Convertisseur WebP local pour Windows"
 readme = "README.md"
 requires-python = ">=3.13"

@@ -1,0 +1,200 @@
+{
+  "cs": {
+    "choose_custom": "Definujte vlastní export",
+    "custom_quality_title": "Kvalita WebP",
+    "custom_desc": "Nastavte velikost a kvalitu přímo.",
+    "custom_dimension_desc": "Maximální velikost bez zvětšování.",
+    "custom_dimension_title": "Delší strana",
+    "custom_quality_desc": "Přímá rovnováha mezi vzhledem a velikostí souboru.",
+    "custom_title": "Vlastní"
+  },
+  "da": {
+    "choose_custom": "Definér din tilpassede eksport",
+    "custom_quality_title": "WebP-kvalitet",
+    "custom_desc": "Angiv størrelse og kvalitet direkte.",
+    "custom_dimension_desc": "Maksimal størrelse uden opskalering.",
+    "custom_dimension_title": "Lang side",
+    "custom_quality_desc": "Direkte balance mellem resultat og filstørrelse.",
+    "custom_title": "Tilpasset"
+  },
+  "de": {
+    "choose_custom": "Benutzerdefinierten Export festlegen",
+    "custom_quality_title": "WebP-Qualität",
+    "custom_desc": "Größe und Qualität direkt festlegen.",
+    "custom_dimension_desc": "Maximale Größe ohne Hochskalierung.",
+    "custom_dimension_title": "Lange Kante",
+    "custom_quality_desc": "Direkter Ausgleich zwischen Darstellung und Dateigröße.",
+    "custom_title": "Benutzerdefiniert"
+  },
+  "en": {
+    "choose_custom": "Define your custom export",
+    "custom_quality_title": "WebP quality",
+    "custom_desc": "Set the size and quality directly.",
+    "custom_dimension_desc": "Maximum size, without upscaling.",
+    "custom_dimension_title": "Long edge",
+    "custom_quality_desc": "Direct balance between rendering and file size.",
+    "custom_title": "Custom"
+  },
+  "es": {
+    "choose_custom": "Define tu exportación personalizada",
+    "custom_quality_title": "Calidad WebP",
+    "custom_desc": "Define directamente el tamaño y la calidad.",
+    "custom_dimension_desc": "Tamaño máximo, sin ampliar la imagen.",
+    "custom_dimension_title": "Lado largo",
+    "custom_quality_desc": "Equilibrio directo entre resultado y tamaño del archivo.",
+    "custom_title": "Personalizado"
+  },
+  "et": {
+    "choose_custom": "Määra kohandatud eksport",
+    "custom_quality_title": "WebP kvaliteet",
+    "custom_desc": "Määra suurus ja kvaliteet otse.",
+    "custom_dimension_desc": "Maksimaalne suurus ilma suurendamiseta.",
+    "custom_dimension_title": "Pikem külg",
+    "custom_quality_desc": "Otsene tasakaal tulemuse ja failimahu vahel.",
+    "custom_title": "Kohandatud"
+  },
+  "fi": {
+    "choose_custom": "Määritä mukautettu vienti",
+    "custom_quality_title": "WebP-laatu",
+    "custom_desc": "Määritä koko ja laatu suoraan.",
+    "custom_dimension_desc": "Enimmäiskoko ilman suurentamista.",
+    "custom_dimension_title": "Pitkä sivu",
+    "custom_quality_desc": "Suora tasapaino kuvanlaadun ja tiedostokoon välillä.",
+    "custom_title": "Mukautettu"
+  },
+  "fr": {
+    "choose_custom": "Définir votre export personnalisé",
+    "custom_quality_title": "Qualité WebP",
+    "custom_desc": "Dimension et qualité définies directement.",
+    "custom_dimension_desc": "Dimension maximale, sans agrandissement.",
+    "custom_dimension_title": "Bord long",
+    "custom_quality_desc": "Compromis direct entre rendu et poids du fichier.",
+    "custom_title": "Custom"
+  },
+  "ga": {
+    "choose_custom": "Sainigh d’easpórtáil shaincheaptha",
+    "custom_quality_title": "Cáilíocht WebP",
+    "custom_desc": "Socraigh an méid agus an cháilíocht go díreach.",
+    "custom_dimension_desc": "Uasmhéid gan uas-scálú.",
+    "custom_dimension_title": "Imeall fada",
+    "custom_quality_desc": "Cothromaíocht dhíreach idir cuma agus méid comhaid.",
+    "custom_title": "Saincheaptha"
+  },
+  "hr": {
+    "choose_custom": "Odredite prilagođeni izvoz",
+    "custom_quality_title": "WebP kvaliteta",
+    "custom_desc": "Izravno postavite veličinu i kvalitetu.",
+    "custom_dimension_desc": "Najveća veličina bez povećavanja.",
+    "custom_dimension_title": "Dulja stranica",
+    "custom_quality_desc": "Izravna ravnoteža između izgleda i veličine datoteke.",
+    "custom_title": "Prilagođeno"
+  },
+  "hu": {
+    "choose_custom": "Adja meg az egyéni exportot",
+    "custom_quality_title": "WebP-minőség",
+    "custom_desc": "Állítsa be közvetlenül a méretet és a minőséget.",
+    "custom_dimension_desc": "Legnagyobb méret felnagyítás nélkül.",
+    "custom_dimension_title": "Hosszabb oldal",
+    "custom_quality_desc": "Közvetlen egyensúly a megjelenés és a fájlméret között.",
+    "custom_title": "Egyéni"
+  },
+  "it": {
+    "choose_custom": "Definisci l’esportazione personalizzata",
+    "custom_quality_title": "Qualità WebP",
+    "custom_desc": "Imposta direttamente dimensione e qualità.",
+    "custom_dimension_desc": "Dimensione massima, senza ingrandimento.",
+    "custom_dimension_title": "Lato lungo",
+    "custom_quality_desc": "Equilibrio diretto tra resa e peso del file.",
+    "custom_title": "Personalizzato"
+  },
+  "lt": {
+    "choose_custom": "Nustatykite pasirinktinį eksportą",
+    "custom_quality_title": "WebP kokybė",
+    "custom_desc": "Tiesiogiai nustatykite dydį ir kokybę.",
+    "custom_dimension_desc": "Didžiausias dydis be didinimo.",
+    "custom_dimension_title": "Ilgoji kraštinė",
+    "custom_quality_desc": "Tiesioginis balansas tarp vaizdo ir failo dydžio.",
+    "custom_title": "Pasirinktinis"
+  },
+  "lv": {
+    "choose_custom": "Definējiet pielāgoto eksportu",
+    "custom_quality_title": "WebP kvalitāte",
+    "custom_desc": "Norādiet izmēru un kvalitāti tieši.",
+    "custom_dimension_desc": "Maksimālais izmērs bez palielināšanas.",
+    "custom_dimension_title": "Garākā mala",
+    "custom_quality_desc": "Tiešs līdzsvars starp rezultātu un faila izmēru.",
+    "custom_title": "Pielāgots"
+  },
+  "mt": {
+    "choose_custom": "Iddefinixxi l-esportazzjoni personalizzata",
+    "custom_quality_title": "Kwalità WebP",
+    "custom_desc": "Issettja d-daqs u l-kwalità direttament.",
+    "custom_dimension_desc": "Daqs massimu mingħajr tkabbir.",
+    "custom_dimension_title": "Naħa twila",
+    "custom_quality_desc": "Bilanċ dirett bejn id-dehra u d-daqs tal-fajl.",
+    "custom_title": "Personalizzat"
+  },
+  "nl": {
+    "choose_custom": "Bepaal je aangepaste export",
+    "custom_quality_title": "WebP-kwaliteit",
+    "custom_desc": "Stel afmeting en kwaliteit direct in.",
+    "custom_dimension_desc": "Maximale afmeting, zonder vergroten.",
+    "custom_dimension_title": "Lange zijde",
+    "custom_quality_desc": "Directe balans tussen weergave en bestandsgrootte.",
+    "custom_title": "Aangepast"
+  },
+  "pl": {
+    "choose_custom": "Określ własny eksport",
+    "custom_quality_title": "Jakość WebP",
+    "custom_desc": "Ustaw rozmiar i jakość bezpośrednio.",
+    "custom_dimension_desc": "Maksymalny rozmiar bez powiększania.",
+    "custom_dimension_title": "Dłuższy bok",
+    "custom_quality_desc": "Bezpośredni balans między wyglądem a rozmiarem pliku.",
+    "custom_title": "Niestandardowy"
+  },
+  "pt": {
+    "choose_custom": "Defina a sua exportação personalizada",
+    "custom_quality_title": "Qualidade WebP",
+    "custom_desc": "Defina diretamente o tamanho e a qualidade.",
+    "custom_dimension_desc": "Tamanho máximo, sem ampliar a imagem.",
+    "custom_dimension_title": "Lado maior",
+    "custom_quality_desc": "Equilíbrio direto entre resultado e tamanho do ficheiro.",
+    "custom_title": "Personalizado"
+  },
+  "ro": {
+    "choose_custom": "Definiți exportul personalizat",
+    "custom_quality_title": "Calitate WebP",
+    "custom_desc": "Setați direct dimensiunea și calitatea.",
+    "custom_dimension_desc": "Dimensiune maximă, fără mărire.",
+    "custom_dimension_title": "Latura lungă",
+    "custom_quality_desc": "Echilibru direct între rezultat și dimensiunea fișierului.",
+    "custom_title": "Personalizat"
+  },
+  "sk": {
+    "choose_custom": "Definujte vlastný export",
+    "custom_quality_title": "Kvalita WebP",
+    "custom_desc": "Nastavte veľkosť a kvalitu priamo.",
+    "custom_dimension_desc": "Maximálna veľkosť bez zväčšovania.",
+    "custom_dimension_title": "Dlhšia strana",
+    "custom_quality_desc": "Priama rovnováha medzi vzhľadom a veľkosťou súboru.",
+    "custom_title": "Vlastné"
+  },
+  "sl": {
+    "choose_custom": "Določite izvoz po meri",
+    "custom_quality_title": "Kakovost WebP",
+    "custom_desc": "Velikost in kakovost nastavite neposredno.",
+    "custom_dimension_desc": "Največja velikost brez povečave.",
+    "custom_dimension_title": "Daljša stranica",
+    "custom_quality_desc": "Neposredno ravnovesje med videzom in velikostjo datoteke.",
+    "custom_title": "Po meri"
+  },
+  "sv": {
+    "choose_custom": "Definiera din anpassade export",
+    "custom_quality_title": "WebP-kvalitet",
+    "custom_desc": "Ange storlek och kvalitet direkt.",
+    "custom_dimension_desc": "Maximal storlek utan uppskalning.",
+    "custom_dimension_title": "Långsida",
+    "custom_quality_desc": "Direkt balans mellan resultat och filstorlek.",
+    "custom_title": "Anpassad"
+  }
+}

@@ -8,6 +8,9 @@ from PIL import Image, ImageOps
 
 SUPPORTED_EXTENSIONS = {'.jpg', '.jpeg', '.png'}
 
+DEFAULT_CUSTOM_WIDTH = 1800
+DEFAULT_CUSTOM_QUALITY = 82
+
 
 GROUP_TITLE_KEYS = {
     "wordpress": "wp_title",
@@ -101,6 +104,24 @@ def clone_defaults() -> dict[str, list[Preset]]:
         group: [Preset(**asdict(item)) for item in items]
         for group, items in DEFAULT_PRESETS.items()
     }
+
+
+def create_custom_preset(
+    width: int = DEFAULT_CUSTOM_WIDTH,
+    quality: int = DEFAULT_CUSTOM_QUALITY,
+) -> Preset:
+    """Create the direct custom export preset with safe numeric limits."""
+    safe_width = max(100, min(10000, int(width)))
+    safe_quality = max(1, min(100, int(quality)))
+    return Preset(
+        key="custom",
+        title="",
+        title_custom=False,
+        width=safe_width,
+        height=None,
+        quality=safe_quality,
+        mode="long_edge",
+    )
 
 
 def iter_image_files(paths: Iterable[str]) -> list[Path]:

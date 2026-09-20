@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.5 — candidate
+
+- ajout du troisième workflow **Custom** ;
+- réglage direct du bord long, de 100 à 10 000 px ;
+- réglage direct de la qualité WebP, de 1 à 100 ;
+- valeurs Custom mémorisées et restaurées par défaut à 1800 px / qualité 82 ;
+- interface et libellés Custom disponibles dans les 22 langues ;
+- version Windows portée à 0.8.5.
+
 ## 0.8.0
 
 - En-tête compacté sans réduire la hauteur des cartes.

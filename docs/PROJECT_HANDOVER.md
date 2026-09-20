@@ -2,9 +2,10 @@
 
 ## État au 31 juillet 2026
 
-Version stable : **0.8.0**  
-Tag attendu : **v0.8.0**  
-Plateforme cible : **Windows 10 / 11 x64**  
+Version candidate : **0.8.5**
+Dernière version taguée : **v0.8.0**
+Branche de travail : **feature/v0.8.5-custom**
+Plateforme cible : **Windows 10 / 11 x64**
 Auteur : **Jean-Philippe Bloch**
 
 Ce document permet de reprendre le projet sans accès aux conversations historiques.
@@ -13,34 +14,37 @@ Ce document permet de reprendre le projet sans accès aux conversations historiq
 
 2Webp convertit des images JPG, JPEG ou PNG en WebP avec une interface simple. Le public n'a pas besoin de connaître les détails de compression, de recadrage ou de redimensionnement.
 
-Le produit vise deux usages initiaux :
+Le produit propose trois workflows :
 
 - WordPress / Web ;
-- PrestaShop.
+- PrestaShop ;
+- Custom.
 
-Les noms des deux usages sont personnalisables, par exemple PrestaShop peut devenir Shopify.
+Les noms WordPress / Web et PrestaShop sont personnalisables. Custom reste un workflow fixe et volontairement minimal.
 
 ## 2. Parcours actuel
 
 1. L'utilisateur ouvre 2Webp.
-2. Il choisit WordPress / Web ou PrestaShop.
-3. Il choisit un preset.
-4. Le bandeau inférieur résume format, mode, qualité et destination.
-5. Il conserve la destination d'origine ou sélectionne un autre dossier.
-6. Il glisse les images ou utilise le bouton de sélection.
-7. La conversion s'exécute dans un thread.
-8. Un écran de réussite remplace temporairement la zone de dépôt pendant cinq secondes.
-9. L'écran normal revient avec la destination conservée.
+2. Il choisit WordPress / Web, PrestaShop ou Custom.
+3. WordPress / PrestaShop affichent quatre presets ; Custom affiche deux cartes directes de 124 px.
+4. Custom demande uniquement un bord long en pixels et une qualité WebP sur 100.
+5. Le bandeau inférieur résume format, mode, qualité et destination.
+6. L'utilisateur conserve la destination d'origine ou sélectionne un autre dossier.
+7. Il glisse les images ou utilise le bouton de sélection.
+8. La conversion s'exécute dans un thread.
+9. Un écran de réussite remplace temporairement la zone de dépôt pendant cinq secondes.
+10. L'écran normal revient avec la destination et les valeurs Custom conservées.
 
 ## 3. Règles métier
 
 - originaux conservés ;
 - aucun écrasement silencieux ;
 - suffixe numérique en cas de doublon ;
-- bord long sans agrandissement pour les presets WordPress ;
-- contain ou cover pour les presets PrestaShop ;
+- bord long sans agrandissement pour WordPress et Custom ;
+- contain ou cover pour PrestaShop ;
 - profil ICC transmis à Pillow quand il existe ;
-- orientation EXIF corrigée avant traitement.
+- orientation EXIF corrigée avant traitement ;
+- valeurs Custom bornées à 100–10 000 px et qualité 1–100.
 
 ## 4. Interface verrouillée
 
@@ -52,23 +56,26 @@ Les noms des deux usages sont personnalisables, par exemple PrestaShop peut deve
 - pas de langue visible avant clic ;
 - pas de maximisation ;
 - pas de plein écran ;
-- cartes de presets à 124 px ;
-- bandeau inférieur visible et rassurant ;
-- zone de dépôt dominante ;
+- cartes de presets et cartes Custom à 124 px ;
+- trois cartes de workflow sur la même ligne ;
+- bloc éditorial compact inchangé ;
+- espacement de 18 px avant la zone de dépôt ;
+- bandeau inférieur fixe de 50 px ;
+- zone de dépôt dominante de 258 à 286 px ;
 - notifications intégrées, pas de boîte blanche native.
 
 ## 5. Persistance
 
-`%APPDATA%\2Webp\settings.json` : langue, destination, noms de métiers.  
-`%APPDATA%\2Webp\presets.json` : huit presets.
+`%APPDATA%\2Webp\settings.json` : langue, destination, noms de métiers et `custom_export`.
+`%APPDATA%\2Webp\presets.json` : huit presets WordPress / PrestaShop.
 
-Si un dossier personnalisé n'existe plus, l'application revient au dossier d'origine.
+Valeurs Custom par défaut : 1800 px et qualité 82. Si un dossier personnalisé n'existe plus, l'application revient au dossier d'origine.
 
 ## 6. Arborescence utile
 
 - `app.py` : interface, navigation, persistance, orchestration ;
-- `core.py` : presets, traitement Pillow, destinations uniques ;
-- `translations/` : 22 JSON + index des langues ;
+- `core.py` : presets, Custom, traitement Pillow, destinations uniques ;
+- `translations/` : 22 JSON, index des langues et `custom.json` ;
 - `assets/brand/` : logo et icônes validés ;
 - `assets/icons/` : pictogrammes de bénéfices ;
 - `tests/` : tests structuraux et fonctionnels ;
@@ -79,7 +86,7 @@ Si un dossier personnalisé n'existe plus, l'application revient au dossier d'or
 
 ## 7. Build
 
-Build rapide : `build.ps1`.  
+Build rapide : `build.ps1`.
 Build complet release : `scripts/build-release.ps1`.
 
 Le build complet doit produire portable EXE, ZIP onedir, installateur et hashes.
@@ -93,27 +100,16 @@ Le build complet doit produire portable EXE, ZIP onedir, installateur et hashes.
 - le mode dossier lit les fichiers compatibles présents directement dans le dossier, pas les sous-dossiers ;
 - la version portable onefile peut démarrer plus lentement que la version installée.
 
-## 9. Prochaine étape décidée
+## 9. Validation v0.8.5 restante
 
-Ajouter une troisième carte **Custom** après WordPress et PrestaShop.
+1. synchroniser la branche locale ;
+2. lancer l'application sous Windows ;
+3. vérifier les trois cartes de workflow à 100 %, 125 % et 150 % ;
+4. vérifier que Custom garde exactement la hauteur et le rythme vertical des presets ;
+5. convertir une image avec 1800 px / qualité 82 ;
+6. redémarrer l'application et vérifier la persistance ;
+7. obtenir un build Windows vert ;
+8. fusionner sur `main` après validation humaine ;
+9. créer le tag v0.8.5 uniquement après validation.
 
-Custom ne doit présenter que deux réglages :
-
-1. dimension du bord long en pixels ;
-2. qualité WebP.
-
-Le reste du parcours ne change pas. La destination, le bandeau, les notifications, le résultat de cinq secondes et les protections restent identiques.
-
-## 10. Validation de la version
-
-Voir `docs/VALIDATION_v0.8.0.md` pour distinguer les tests réellement exécutés des contrôles Windows restant à faire.
-
-## 11. Ordre de reprise recommandé
-
-1. `git status` ;
-2. lire `AGENTS.md` ;
-3. exécuter les tests ;
-4. lancer `py app.py` sous Windows ;
-5. vérifier la V0.8.0 visuellement ;
-6. créer une branche `feature/custom-mode` ;
-7. implémenter Custom sans modifier les deux modes existants.
+Voir `docs/VALIDATION_v0.8.0.md` pour l'historique de validation de la base précédente.

@@ -2,7 +2,7 @@ import os, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
-from core import DEFAULT_PRESETS, clone_defaults
+from core import (DEFAULT_CUSTOM_QUALITY, DEFAULT_CUSTOM_WIDTH, DEFAULT_PRESETS, clone_defaults, create_custom_preset)
 assert len(DEFAULT_PRESETS['wordpress'])==4
 assert len(DEFAULT_PRESETS['prestashop'])==4
 wp=DEFAULT_PRESETS['wordpress']
@@ -27,3 +27,11 @@ custom.title_custom = True
 custom.title = 'Mon preset'
 assert custom.display_title(FakeTranslator()) == 'Mon preset'
 print('OK: display_title')
+
+custom_preset = create_custom_preset()
+assert custom_preset.width == DEFAULT_CUSTOM_WIDTH == 1800
+assert custom_preset.quality == DEFAULT_CUSTOM_QUALITY == 82
+assert custom_preset.mode == "long_edge" and custom_preset.height is None
+assert create_custom_preset(99999, -4).width == 10000
+assert create_custom_preset(99999, -4).quality == 1
+print("OK: custom export preset")

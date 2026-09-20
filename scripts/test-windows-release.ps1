@@ -61,10 +61,10 @@ Write-Host "Le run est conservé, même en cas d'échec, afin de préserver les 
 $WatchExitCode = $LASTEXITCODE
 
 if ($WatchExitCode -ne 0) {
-  Write-Host "" 
+  Write-Host ""
   Write-Host "=== LOGS DES ÉTAPES EN ÉCHEC ===" -ForegroundColor Red
   & gh run view $RunId --repo $Repository --log-failed
-  Write-Host "" 
+  Write-Host ""
   Write-Host "Run échoué conservé : $RunId" -ForegroundColor Yellow
   exit $WatchExitCode
 }

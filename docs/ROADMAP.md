@@ -1,43 +1,28 @@
 # Roadmap
 
-## Stable — v0.8.0
+## Candidate — v0.8.5
 
 - WordPress / Web ;
 - PrestaShop ;
 - huit presets ;
+- troisième workflow Custom ;
+- Custom limité au bord long et à la qualité WebP ;
+- valeurs Custom mémorisées ;
 - destination personnalisée ;
 - 22 langues ;
-- interface compacte ;
+- interface compacte et rythme vertical conservé ;
 - build portable, ZIP et installateur ;
 - documentation de reprise complète.
 
-## Prochaine version fonctionnelle — Custom
+## Validation restante pour v0.8.5
 
-Ajouter une troisième carte métier après WordPress et PrestaShop :
-
-**Custom**
-
-Le panneau Custom contient uniquement deux cartes ou champs :
-
-1. **Dimension** — saisie directe du bord long en pixels ;
-2. **Qualité** — saisie directe de la qualité WebP.
-
-Comportement prévu :
-
-- valeur dimension entière ;
-- bord long ;
-- proportions conservées ;
-- pas d'agrandissement d'une image plus petite ;
-- qualité WebP entière ;
-- valeurs mémorisées ;
-- récapitulatif du bas mis à jour immédiatement ;
-- même destination ;
-- même conversion ;
-- même écran temporaire ;
-- mêmes protections ;
-- traductions des deux libellés.
-
-Le reste de l'application ne change pas.
+- test visuel Windows à 100 %, 125 % et 150 % ;
+- contrôle du passage WordPress → PrestaShop → Custom ;
+- contrôle de la saisie 1800 px / qualité 82 ;
+- contrôle du footer avant conversion ;
+- contrôle d'une conversion réelle et de la persistance après redémarrage ;
+- build Windows vert ;
+- validation humaine avant merge et tag.
 
 ## Après Custom
 

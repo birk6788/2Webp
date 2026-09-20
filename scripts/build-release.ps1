@@ -73,9 +73,9 @@ Invoke-Python -Arguments @(
   "--distpath", $OnedirDist,
   "--workpath", ".\build\onedir",
   "--specpath", ".\build\specs",
-  "--icon", ".\assets\brand\2Webp-taskbar-round.ico",
-  "--add-data", ".\assets;assets",
-  "--add-data", ".\translations;translations",
+  "--icon", (Join-Path $Root "assets\brand\2Webp-taskbar-round.ico"),
+  "--add-data", ((Join-Path $Root "assets") + ";assets"),
+  "--add-data", ((Join-Path $Root "translations") + ";translations"),
   ".\app.py"
 )
 
@@ -97,13 +97,15 @@ Invoke-Python -Arguments @(
   "--clean",
   "--windowed",
   "--onefile",
+  "--splash", (Join-Path $Root "assets\brand\2Webp-splash.png"),
+  "--splash-center", "active",
   "--name", $PortableName,
   "--distpath", $OnefileDist,
   "--workpath", ".\build\onefile",
   "--specpath", ".\build\specs",
-  "--icon", ".\assets\brand\2Webp-taskbar-round.ico",
-  "--add-data", ".\assets;assets",
-  "--add-data", ".\translations;translations",
+  "--icon", (Join-Path $Root "assets\brand\2Webp-taskbar-round.ico"),
+  "--add-data", ((Join-Path $Root "assets") + ";assets"),
+  "--add-data", ((Join-Path $Root "translations") + ";translations"),
   ".\app.py"
 )
 
@@ -139,6 +141,7 @@ Remove-Item $TempPackage -Recurse -Force -ErrorAction SilentlyContinue
 
 Write-Host "Installateur Inno Setup..." -ForegroundColor Yellow
 $IsccCandidates = @(
+  "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe",
   "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
   "$env:ProgramFiles\Inno Setup 6\ISCC.exe"
 )

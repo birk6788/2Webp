@@ -20,3 +20,7 @@ assert "_collect_business_groups" in text
 assert "save_business_groups" in text
 assert "choose_usage" in text
 print("OK: customizable workflow names")
+
+assert "load_custom_export" in text and "save_custom_export" in text
+assert "DEFAULT_CUSTOM_WIDTH" in text and "DEFAULT_CUSTOM_QUALITY" in text
+print("OK: persisted Custom values and default reset")

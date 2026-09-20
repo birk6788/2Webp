@@ -138,13 +138,16 @@ Une release stable doit contenir :
 
 Les binaires non signés peuvent déclencher SmartScreen. Ne jamais prétendre qu'ils sont signés s'ils ne le sont pas.
 
-## 11. Prochaine fonctionnalité verrouillée
+## 11. Fonctionnalité Custom verrouillée — v0.8.5
 
-Le prochain chantier est **Custom** :
+Custom est le troisième workflow après WordPress / Web et PrestaShop :
 
-- troisième carte métier après WordPress et PrestaShop ;
-- deux champs seulement : dimension du bord long en px et qualité WebP ;
-- aucun changement au reste du parcours de conversion ;
-- la destination, le résultat temporaire, les traductions et le récapitulatif restent identiques.
+- deux champs seulement : dimension du bord long en px et qualité WebP sur 100 ;
+- deux cartes de 124 px, au même niveau visuel que les presets ;
+- mêmes hauteurs de modes, mêmes espacements, même hero, même zone de dépôt et même footer ;
+- aucun recadrage et aucun agrandissement ;
+- la destination, le résultat temporaire, les traductions et le récapitulatif restent identiques ;
+- valeurs par défaut : 1800 px et qualité 82 ;
+- valeurs mémorisées dans `settings.json`.
 
-Voir `docs/ROADMAP.md`.
+Toute option supplémentaire nécessite une validation produit explicite.
