@@ -24,3 +24,12 @@ print("OK: customizable workflow names")
 assert "load_custom_export" in text and "save_custom_export" in text
 assert "DEFAULT_CUSTOM_WIDTH" in text and "DEFAULT_CUSTOM_QUALITY" in text
 print("OK: persisted Custom values and default reset")
+
+assert "class NameSuffixCard" in text
+assert "load_name_suffix" in text and "save_name_suffix" in text
+assert "_collect_name_suffix" in text
+assert "namingTags" in text and "namingExample" in text
+assert "refresh_example" in text
+# Le suffixe doit suivre le lot jusqu'au thread de conversion.
+assert "self.name_suffix," in text
+print("OK: editable output name suffix")

@@ -1,200 +1,288 @@
 {
   "cs": {
     "choose_custom": "Definujte vlastní export",
-    "custom_quality_title": "Kvalita WebP",
     "custom_desc": "Nastavte velikost a kvalitu přímo.",
     "custom_dimension_desc": "Maximální velikost bez zvětšování.",
     "custom_dimension_title": "Delší strana",
     "custom_quality_desc": "Přímá rovnováha mezi vzhledem a velikostí souboru.",
-    "custom_title": "Vlastní"
+    "custom_quality_title": "Kvalita WebP",
+    "custom_title": "Vlastní",
+    "naming_desc": "Přípona přidaná k původnímu názvu. Ponechte prázdné, aby název zůstal beze změny.",
+    "naming_example": "příklad: {filename}",
+    "naming_field": "Přípona",
+    "naming_title": "Název vytvořených souborů"
   },
   "da": {
     "choose_custom": "Definér din tilpassede eksport",
-    "custom_quality_title": "WebP-kvalitet",
     "custom_desc": "Angiv størrelse og kvalitet direkte.",
     "custom_dimension_desc": "Maksimal størrelse uden opskalering.",
     "custom_dimension_title": "Lang side",
     "custom_quality_desc": "Direkte balance mellem resultat og filstørrelse.",
-    "custom_title": "Tilpasset"
+    "custom_quality_title": "WebP-kvalitet",
+    "custom_title": "Tilpasset",
+    "naming_desc": "Suffikset der føjes til det oprindelige navn. Lad feltet stå tomt for at beholde navnet.",
+    "naming_example": "eksempel: {filename}",
+    "naming_field": "Suffiks",
+    "naming_title": "Navn på de oprettede filer"
   },
   "de": {
     "choose_custom": "Benutzerdefinierten Export festlegen",
-    "custom_quality_title": "WebP-Qualität",
     "custom_desc": "Größe und Qualität direkt festlegen.",
     "custom_dimension_desc": "Maximale Größe ohne Hochskalierung.",
     "custom_dimension_title": "Lange Kante",
     "custom_quality_desc": "Direkter Ausgleich zwischen Darstellung und Dateigröße.",
-    "custom_title": "Benutzerdefiniert"
+    "custom_quality_title": "WebP-Qualität",
+    "custom_title": "Benutzerdefiniert",
+    "naming_desc": "Das an den ursprünglichen Namen angehängte Suffix. Leer lassen, um den Namen unverändert zu lassen.",
+    "naming_example": "Beispiel: {filename}",
+    "naming_field": "Suffix",
+    "naming_title": "Name der erzeugten Dateien"
   },
   "en": {
     "choose_custom": "Define your custom export",
-    "custom_quality_title": "WebP quality",
     "custom_desc": "Set the size and quality directly.",
     "custom_dimension_desc": "Maximum size, without upscaling.",
     "custom_dimension_title": "Long edge",
     "custom_quality_desc": "Direct balance between rendering and file size.",
-    "custom_title": "Custom"
+    "custom_quality_title": "WebP quality",
+    "custom_title": "Custom",
+    "naming_desc": "The suffix added to the original name. Leave empty to keep the name unchanged.",
+    "naming_example": "example: {filename}",
+    "naming_field": "Suffix",
+    "naming_title": "Name of the produced files"
   },
   "es": {
     "choose_custom": "Define tu exportación personalizada",
-    "custom_quality_title": "Calidad WebP",
     "custom_desc": "Define directamente el tamaño y la calidad.",
     "custom_dimension_desc": "Tamaño máximo, sin ampliar la imagen.",
     "custom_dimension_title": "Lado largo",
     "custom_quality_desc": "Equilibrio directo entre resultado y tamaño del archivo.",
-    "custom_title": "Personalizado"
+    "custom_quality_title": "Calidad WebP",
+    "custom_title": "Personalizado",
+    "naming_desc": "El sufijo añadido al nombre original. Déjelo vacío para conservar el nombre tal cual.",
+    "naming_example": "ejemplo: {filename}",
+    "naming_field": "Sufijo",
+    "naming_title": "Nombre de los archivos generados"
   },
   "et": {
     "choose_custom": "Määra kohandatud eksport",
-    "custom_quality_title": "WebP kvaliteet",
     "custom_desc": "Määra suurus ja kvaliteet otse.",
     "custom_dimension_desc": "Maksimaalne suurus ilma suurendamiseta.",
     "custom_dimension_title": "Pikem külg",
     "custom_quality_desc": "Otsene tasakaal tulemuse ja failimahu vahel.",
-    "custom_title": "Kohandatud"
+    "custom_quality_title": "WebP kvaliteet",
+    "custom_title": "Kohandatud",
+    "naming_desc": "Algsele nimele lisatav järelliide. Jätke tühjaks, et nimi jääks muutumatuks.",
+    "naming_example": "näide: {filename}",
+    "naming_field": "Järelliide",
+    "naming_title": "Loodud failide nimi"
   },
   "fi": {
     "choose_custom": "Määritä mukautettu vienti",
-    "custom_quality_title": "WebP-laatu",
     "custom_desc": "Määritä koko ja laatu suoraan.",
     "custom_dimension_desc": "Enimmäiskoko ilman suurentamista.",
     "custom_dimension_title": "Pitkä sivu",
     "custom_quality_desc": "Suora tasapaino kuvanlaadun ja tiedostokoon välillä.",
-    "custom_title": "Mukautettu"
+    "custom_quality_title": "WebP-laatu",
+    "custom_title": "Mukautettu",
+    "naming_desc": "Alkuperäiseen nimeen lisättävä pääte. Jätä tyhjäksi säilyttääksesi nimen ennallaan.",
+    "naming_example": "esimerkki: {filename}",
+    "naming_field": "Pääte",
+    "naming_title": "Luotujen tiedostojen nimi"
   },
   "fr": {
     "choose_custom": "Définir votre export personnalisé",
-    "custom_quality_title": "Qualité WebP",
     "custom_desc": "Dimension et qualité définies directement.",
     "custom_dimension_desc": "Dimension maximale, sans agrandissement.",
     "custom_dimension_title": "Bord long",
     "custom_quality_desc": "Compromis direct entre rendu et poids du fichier.",
-    "custom_title": "Custom"
+    "custom_quality_title": "Qualité WebP",
+    "custom_title": "Custom",
+    "naming_desc": "Le suffixe ajouté au nom d'origine. Laissez vide pour garder le nom tel quel.",
+    "naming_example": "exemple : {filename}",
+    "naming_field": "Suffixe",
+    "naming_title": "Nom des fichiers produits"
   },
   "ga": {
     "choose_custom": "Sainigh d’easpórtáil shaincheaptha",
-    "custom_quality_title": "Cáilíocht WebP",
     "custom_desc": "Socraigh an méid agus an cháilíocht go díreach.",
     "custom_dimension_desc": "Uasmhéid gan uas-scálú.",
     "custom_dimension_title": "Imeall fada",
     "custom_quality_desc": "Cothromaíocht dhíreach idir cuma agus méid comhaid.",
-    "custom_title": "Saincheaptha"
+    "custom_quality_title": "Cáilíocht WebP",
+    "custom_title": "Saincheaptha",
+    "naming_desc": "An iarmhír a chuirtear leis an ainm bunaidh. Fág folamh chun an t-ainm a choinneáil mar atá.",
+    "naming_example": "sampla: {filename}",
+    "naming_field": "Iarmhír",
+    "naming_title": "Ainm na gcomhad a chruthaítear"
   },
   "hr": {
     "choose_custom": "Odredite prilagođeni izvoz",
-    "custom_quality_title": "WebP kvaliteta",
     "custom_desc": "Izravno postavite veličinu i kvalitetu.",
     "custom_dimension_desc": "Najveća veličina bez povećavanja.",
     "custom_dimension_title": "Dulja stranica",
     "custom_quality_desc": "Izravna ravnoteža između izgleda i veličine datoteke.",
-    "custom_title": "Prilagođeno"
+    "custom_quality_title": "WebP kvaliteta",
+    "custom_title": "Prilagođeno",
+    "naming_desc": "Sufiks dodan izvornom nazivu. Ostavite prazno da naziv ostane nepromijenjen.",
+    "naming_example": "primjer: {filename}",
+    "naming_field": "Sufiks",
+    "naming_title": "Naziv izrađenih datoteka"
   },
   "hu": {
     "choose_custom": "Adja meg az egyéni exportot",
-    "custom_quality_title": "WebP-minőség",
     "custom_desc": "Állítsa be közvetlenül a méretet és a minőséget.",
     "custom_dimension_desc": "Legnagyobb méret felnagyítás nélkül.",
     "custom_dimension_title": "Hosszabb oldal",
     "custom_quality_desc": "Közvetlen egyensúly a megjelenés és a fájlméret között.",
-    "custom_title": "Egyéni"
+    "custom_quality_title": "WebP-minőség",
+    "custom_title": "Egyéni",
+    "naming_desc": "Az eredeti névhez fűzött utótag. Hagyja üresen, ha a nevet változatlanul szeretné hagyni.",
+    "naming_example": "példa: {filename}",
+    "naming_field": "Utótag",
+    "naming_title": "A létrehozott fájlok neve"
   },
   "it": {
     "choose_custom": "Definisci l’esportazione personalizzata",
-    "custom_quality_title": "Qualità WebP",
     "custom_desc": "Imposta direttamente dimensione e qualità.",
     "custom_dimension_desc": "Dimensione massima, senza ingrandimento.",
     "custom_dimension_title": "Lato lungo",
     "custom_quality_desc": "Equilibrio diretto tra resa e peso del file.",
-    "custom_title": "Personalizzato"
+    "custom_quality_title": "Qualità WebP",
+    "custom_title": "Personalizzato",
+    "naming_desc": "Il suffisso aggiunto al nome originale. Lasciare vuoto per mantenere il nome invariato.",
+    "naming_example": "esempio: {filename}",
+    "naming_field": "Suffisso",
+    "naming_title": "Nome dei file prodotti"
   },
   "lt": {
     "choose_custom": "Nustatykite pasirinktinį eksportą",
-    "custom_quality_title": "WebP kokybė",
     "custom_desc": "Tiesiogiai nustatykite dydį ir kokybę.",
     "custom_dimension_desc": "Didžiausias dydis be didinimo.",
     "custom_dimension_title": "Ilgoji kraštinė",
     "custom_quality_desc": "Tiesioginis balansas tarp vaizdo ir failo dydžio.",
-    "custom_title": "Pasirinktinis"
+    "custom_quality_title": "WebP kokybė",
+    "custom_title": "Pasirinktinis",
+    "naming_desc": "Prie pradinio pavadinimo pridedama priesaga. Palikite tuščią, kad pavadinimas liktų nepakitęs.",
+    "naming_example": "pavyzdys: {filename}",
+    "naming_field": "Priesaga",
+    "naming_title": "Sukurtų failų pavadinimas"
   },
   "lv": {
     "choose_custom": "Definējiet pielāgoto eksportu",
-    "custom_quality_title": "WebP kvalitāte",
     "custom_desc": "Norādiet izmēru un kvalitāti tieši.",
     "custom_dimension_desc": "Maksimālais izmērs bez palielināšanas.",
     "custom_dimension_title": "Garākā mala",
     "custom_quality_desc": "Tiešs līdzsvars starp rezultātu un faila izmēru.",
-    "custom_title": "Pielāgots"
+    "custom_quality_title": "WebP kvalitāte",
+    "custom_title": "Pielāgots",
+    "naming_desc": "Sākotnējam nosaukumam pievienotais sufikss. Atstājiet tukšu, lai nosaukums paliktu nemainīgs.",
+    "naming_example": "piemērs: {filename}",
+    "naming_field": "Sufikss",
+    "naming_title": "Izveidoto failu nosaukums"
   },
   "mt": {
     "choose_custom": "Iddefinixxi l-esportazzjoni personalizzata",
-    "custom_quality_title": "Kwalità WebP",
     "custom_desc": "Issettja d-daqs u l-kwalità direttament.",
     "custom_dimension_desc": "Daqs massimu mingħajr tkabbir.",
     "custom_dimension_title": "Naħa twila",
     "custom_quality_desc": "Bilanċ dirett bejn id-dehra u d-daqs tal-fajl.",
-    "custom_title": "Personalizzat"
+    "custom_quality_title": "Kwalità WebP",
+    "custom_title": "Personalizzat",
+    "naming_desc": "Is-suffiss miżjud mal-isem oriġinali. Ħalli vojt biex l-isem jibqa' kif inhu.",
+    "naming_example": "eżempju: {filename}",
+    "naming_field": "Suffiss",
+    "naming_title": "Isem tal-fajls maħluqa"
   },
   "nl": {
     "choose_custom": "Bepaal je aangepaste export",
-    "custom_quality_title": "WebP-kwaliteit",
     "custom_desc": "Stel afmeting en kwaliteit direct in.",
     "custom_dimension_desc": "Maximale afmeting, zonder vergroten.",
     "custom_dimension_title": "Lange zijde",
     "custom_quality_desc": "Directe balans tussen weergave en bestandsgrootte.",
-    "custom_title": "Aangepast"
+    "custom_quality_title": "WebP-kwaliteit",
+    "custom_title": "Aangepast",
+    "naming_desc": "Het achtervoegsel dat aan de oorspronkelijke naam wordt toegevoegd. Laat leeg om de naam ongewijzigd te laten.",
+    "naming_example": "voorbeeld: {filename}",
+    "naming_field": "Achtervoegsel",
+    "naming_title": "Naam van de gemaakte bestanden"
   },
   "pl": {
     "choose_custom": "Określ własny eksport",
-    "custom_quality_title": "Jakość WebP",
     "custom_desc": "Ustaw rozmiar i jakość bezpośrednio.",
     "custom_dimension_desc": "Maksymalny rozmiar bez powiększania.",
     "custom_dimension_title": "Dłuższy bok",
     "custom_quality_desc": "Bezpośredni balans między wyglądem a rozmiarem pliku.",
-    "custom_title": "Niestandardowy"
+    "custom_quality_title": "Jakość WebP",
+    "custom_title": "Niestandardowy",
+    "naming_desc": "Przyrostek dodawany do oryginalnej nazwy. Pozostaw puste, aby zachować nazwę bez zmian.",
+    "naming_example": "przykład: {filename}",
+    "naming_field": "Przyrostek",
+    "naming_title": "Nazwa tworzonych plików"
   },
   "pt": {
     "choose_custom": "Defina a sua exportação personalizada",
-    "custom_quality_title": "Qualidade WebP",
     "custom_desc": "Defina diretamente o tamanho e a qualidade.",
     "custom_dimension_desc": "Tamanho máximo, sem ampliar a imagem.",
     "custom_dimension_title": "Lado maior",
     "custom_quality_desc": "Equilíbrio direto entre resultado e tamanho do ficheiro.",
-    "custom_title": "Personalizado"
+    "custom_quality_title": "Qualidade WebP",
+    "custom_title": "Personalizado",
+    "naming_desc": "O sufixo adicionado ao nome original. Deixe vazio para manter o nome tal como está.",
+    "naming_example": "exemplo: {filename}",
+    "naming_field": "Sufixo",
+    "naming_title": "Nome dos ficheiros produzidos"
   },
   "ro": {
     "choose_custom": "Definiți exportul personalizat",
-    "custom_quality_title": "Calitate WebP",
     "custom_desc": "Setați direct dimensiunea și calitatea.",
     "custom_dimension_desc": "Dimensiune maximă, fără mărire.",
     "custom_dimension_title": "Latura lungă",
     "custom_quality_desc": "Echilibru direct între rezultat și dimensiunea fișierului.",
-    "custom_title": "Personalizat"
+    "custom_quality_title": "Calitate WebP",
+    "custom_title": "Personalizat",
+    "naming_desc": "Sufixul adăugat la numele original. Lăsați gol pentru a păstra numele neschimbat.",
+    "naming_example": "exemplu: {filename}",
+    "naming_field": "Sufix",
+    "naming_title": "Numele fișierelor produse"
   },
   "sk": {
     "choose_custom": "Definujte vlastný export",
-    "custom_quality_title": "Kvalita WebP",
     "custom_desc": "Nastavte veľkosť a kvalitu priamo.",
     "custom_dimension_desc": "Maximálna veľkosť bez zväčšovania.",
     "custom_dimension_title": "Dlhšia strana",
     "custom_quality_desc": "Priama rovnováha medzi vzhľadom a veľkosťou súboru.",
-    "custom_title": "Vlastné"
+    "custom_quality_title": "Kvalita WebP",
+    "custom_title": "Vlastné",
+    "naming_desc": "Prípona pridaná k pôvodnému názvu. Nechajte prázdne, aby názov zostal nezmenený.",
+    "naming_example": "príklad: {filename}",
+    "naming_field": "Prípona",
+    "naming_title": "Názov vytvorených súborov"
   },
   "sl": {
     "choose_custom": "Določite izvoz po meri",
-    "custom_quality_title": "Kakovost WebP",
     "custom_desc": "Velikost in kakovost nastavite neposredno.",
     "custom_dimension_desc": "Največja velikost brez povečave.",
     "custom_dimension_title": "Daljša stranica",
     "custom_quality_desc": "Neposredno ravnovesje med videzom in velikostjo datoteke.",
-    "custom_title": "Po meri"
+    "custom_quality_title": "Kakovost WebP",
+    "custom_title": "Po meri",
+    "naming_desc": "Pripona, dodana izvirnemu imenu. Pustite prazno, da ime ostane nespremenjeno.",
+    "naming_example": "primer: {filename}",
+    "naming_field": "Pripona",
+    "naming_title": "Ime ustvarjenih datotek"
   },
   "sv": {
     "choose_custom": "Definiera din anpassade export",
-    "custom_quality_title": "WebP-kvalitet",
     "custom_desc": "Ange storlek och kvalitet direkt.",
     "custom_dimension_desc": "Maximal storlek utan uppskalning.",
     "custom_dimension_title": "Långsida",
     "custom_quality_desc": "Direkt balans mellan resultat och filstorlek.",
-    "custom_title": "Anpassad"
+    "custom_quality_title": "WebP-kvalitet",
+    "custom_title": "Anpassad",
+    "naming_desc": "Suffixet som läggs till det ursprungliga namnet. Lämna tomt för att behålla namnet.",
+    "naming_example": "exempel: {filename}",
+    "naming_field": "Suffix",
+    "naming_title": "Namn på de skapade filerna"
   }
 }

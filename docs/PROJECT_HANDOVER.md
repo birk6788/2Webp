@@ -39,7 +39,9 @@ Les noms WordPress / Web et PrestaShop sont personnalisables. Custom reste un wo
 
 - originaux conservés ;
 - aucun écrasement silencieux ;
-- nom de sortie suffixé par le bord long réel : `photo_1600.webp` ;
+- nom de sortie suffixé selon le réglage de l'utilisateur, `_{long}` par
+  défaut : `photo_1600.webp` ; un suffixe vide conserve `photo.webp` ;
+- le nom d'origine précède toujours le suffixe ;
 - suffixe numérique en cas de doublon strict : `photo_1600-2.webp` ;
 - bord long sans agrandissement pour WordPress et Custom ;
 - contain ou cover pour PrestaShop ;
@@ -67,7 +69,8 @@ Les noms WordPress / Web et PrestaShop sont personnalisables. Custom reste un wo
 
 ## 5. Persistance
 
-`%APPDATA%\2Webp\settings.json` : langue, destination, noms de métiers et `custom_export`.
+`%APPDATA%\2Webp\settings.json` : langue, destination, noms de métiers,
+`custom_export` et `name_suffix`.
 `%APPDATA%\2Webp\presets.json` : huit presets WordPress / PrestaShop.
 
 Valeurs Custom par défaut : 1800 px et qualité 82. Si un dossier personnalisé n'existe plus, l'application revient au dossier d'origine.

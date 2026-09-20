@@ -74,6 +74,57 @@ with tempfile.TemporaryDirectory() as tmp:
     source=root/'brut.jpg'
     Image.new('RGB',(400,400),'white').save(source)
     assert unique_webp_destination(source).name=='brut.webp'
-    assert unique_webp_destination(source,None,1600).name=='brut_1600.webp'
+    assert unique_webp_destination(source,None,"_1600").name=='brut_1600.webp'
 
 print('OK: suffixe de bord long dans le nom de sortie')
+
+# Suffixe libre choisi dans les Reglages.
+from core import DEFAULT_NAME_SUFFIX, render_name_suffix, sanitize_name_suffix
+
+assert DEFAULT_NAME_SUFFIX == "_{long}"
+
+# Les balises anglaises et leurs alias francais donnent le meme resultat.
+assert render_name_suffix("_{long}", 1600, 1200, 82) == "_1600"
+assert render_name_suffix("_{bordlong}", 1600, 1200, 82) == "_1600"
+assert render_name_suffix("_{width}x{height}", 1600, 1200, 82) == "_1600x1200"
+assert render_name_suffix("_{largeur}x{hauteur}", 1600, 1200, 82) == "_1600x1200"
+assert render_name_suffix("_{long}_q{quality}", 1600, 1200, 82) == "_1600_q82"
+
+# Le bord long suit l'orientation reelle.
+assert render_name_suffix("_{long}", 1000, 2500, 80) == "_2500"
+
+# Un suffixe libre sans balise passe tel quel.
+assert render_name_suffix("-web", 1600, 1200, 82) == "-web"
+
+# Une balise inconnue reste visible : l'utilisateur la corrige.
+assert render_name_suffix("_{inconnu}", 1600, 1200, 82) == "_{inconnu}"
+
+# Les caracteres interdits par Windows sont retires.
+for interdit in '\\/:*?"<>|':
+    assert interdit not in sanitize_name_suffix("a" + interdit + "b")
+assert sanitize_name_suffix("  _web  ") == "_web"
+assert sanitize_name_suffix("_web.") == "_web"
+
+with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp)
+    source=root/'photo.jpg'
+    Image.new('RGB',(3000,2000),'white').save(source)
+    preset=Preset('test','',False,1600,None,82,'long_edge')
+
+    # Suffixe vide : le nom d'origine est conserve, comme avant la 0.8.6.
+    dest,_,_=convert_one(source,preset,None,"")
+    assert dest.name=='photo.webp', dest.name
+
+    # Suffixe libre.
+    dest,_,_=convert_one(source,preset,None,"-web")
+    assert dest.name=='photo-web.webp', dest.name
+
+    # Suffixe avec balises.
+    dest,_,_=convert_one(source,preset,None,"_{width}x{height}_q{quality}")
+    assert dest.name=='photo_1600x1067_q82.webp', dest.name
+
+    # La protection contre l'ecrasement passe avant le suffixe choisi.
+    encore,_,_=convert_one(source,preset,None,"-web")
+    assert encore.name=='photo-web-2.webp', encore.name
+
+print('OK: suffixe de nom libre et balises')

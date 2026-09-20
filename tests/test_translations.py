@@ -29,5 +29,16 @@ assert custom_keys=={
     'custom_title','custom_desc','choose_custom',
     'custom_dimension_title','custom_dimension_desc',
     'custom_quality_title','custom_quality_desc',
+    'naming_title','naming_desc','naming_field','naming_example',
 }
 print(f"OK: Custom translated in {len(custom)} languages")
+
+# Les accolades des libelles du suffixe seraient prises pour des champs de
+# formatage par Translator.text(). Seul naming_example a droit a un
+# placeholder, et c'est {filename}.
+for code,values in custom.items():
+    for key in ('naming_title','naming_desc','naming_field'):
+        assert '{' not in values[key], f"{code}:{key} ne doit porter aucune accolade"
+    placeholders={field for _,field,_,_ in string.Formatter().parse(values['naming_example']) if field}
+    assert placeholders=={'filename'}, f"{code}:naming_example -> {placeholders}"
+print("OK: no stray braces in naming labels")

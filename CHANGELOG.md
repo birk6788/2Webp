@@ -7,7 +7,12 @@
 - le nom du fichier produit porte désormais le bord long réel,
   `photo.jpg` en 1600 px devient `photo_1600.webp` ;
 - deux tailles différentes de la même source ne se disputent plus le nom ;
-- le suffixe numérique `-2`, `-3` ne sert plus qu'aux conversions identiques.
+- le suffixe numérique `-2`, `-3` ne sert plus qu'aux conversions identiques ;
+- le suffixe se règle librement dans Réglages, carte « Nom des fichiers
+  produits », avec les balises `{long}`, `{width}`, `{height}`, `{quality}`
+  et une ligne d'exemple qui se met à jour pendant la saisie ;
+- un suffixe vide conserve exactement le nom de la source ;
+- libellés du suffixe ajoutés aux 22 langues.
 
 ## 0.8.5 — en production depuis le 5 août 2026
 

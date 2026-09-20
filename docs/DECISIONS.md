@@ -41,3 +41,18 @@ Les assets validés sont utilisés tels quels. Aucun logo reconstruit par code.
 ## D-010 — Custom minimal
 
 Le futur mode Custom aura seulement dimension du bord long et qualité. Le but est de rester compréhensible et de ne pas transformer 2Webp en éditeur d'image complexe.
+
+## D-011 — Suffixe de nom libre plutôt que liste de formats
+
+Validation produit du 20 septembre 2026, demandée explicitement comme le
+prévoit `AGENTS.md` §11.
+
+Le suffixe des fichiers produits est un champ de saisie libre dans les
+Réglages, pas une liste déroulante de formats figés. Motif : c'est un champ
+comme les noms de métiers juste au-dessus, donc cohérent avec ce qui existe,
+et une liste fermée n'aurait jamais couvert les conventions de nommage
+réelles.
+
+Le champ porte le suffixe seul, pas un modèle complet : le nom d'origine
+reste devant par construction. Un modèle complet aurait permis de supprimer
+`{nom}` et de replier tout un lot sur un seul nom de sortie.

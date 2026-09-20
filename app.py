@@ -9,9 +9,11 @@ from pathlib import Path
 from PySide6.QtCore import QEvent, QObject, QStandardPaths, QThread, Qt, Signal, QTimer
 from PySide6.QtGui import QIcon, QIntValidator, QPixmap
 from core import (
-    BusinessGroup, DEFAULT_CUSTOM_QUALITY, DEFAULT_CUSTOM_WIDTH, GROUP_TITLE_KEYS,
+    BusinessGroup, DEFAULT_CUSTOM_QUALITY, DEFAULT_CUSTOM_WIDTH,
+    DEFAULT_NAME_SUFFIX, GROUP_TITLE_KEYS, NAME_SUFFIX_TAGS,
     PRESET_TITLE_KEYS, Preset, clone_default_business_groups, clone_defaults,
-    convert_one, create_custom_preset, iter_image_files,
+    convert_one, create_custom_preset, iter_image_files, render_name_suffix,
+    sanitize_name_suffix,
 )
 
 from PySide6.QtWidgets import (
@@ -183,6 +185,24 @@ def save_custom_export(width: int, quality: int) -> None:
     save_settings_data(data)
 
 
+def load_name_suffix() -> str:
+    """Suffixe de nom choisi dans les Réglages.
+
+    Une chaîne vide est une valeur légitime : elle rend le comportement
+    d'avant la 0.8.6, un nom de sortie identique au nom d'origine.
+    """
+    data = load_settings_data()
+    if "name_suffix" not in data:
+        return DEFAULT_NAME_SUFFIX
+    return sanitize_name_suffix(data.get("name_suffix", ""))
+
+
+def save_name_suffix(template: str) -> None:
+    data = load_settings_data()
+    data["name_suffix"] = sanitize_name_suffix(template)
+    save_settings_data(data)
+
+
 def load_business_groups() -> dict[str, BusinessGroup]:
     defaults = clone_default_business_groups()
     raw_groups = load_settings_data().get("business_groups", {})
@@ -258,11 +278,13 @@ class ConversionWorker(QObject):
         files: list[Path],
         preset: Preset,
         output_dir: Path | None,
+        name_suffix: str = DEFAULT_NAME_SUFFIX,
     ):
         super().__init__()
         self.files = files
         self.preset = preset
         self.output_dir = output_dir
+        self.name_suffix = name_suffix
 
     def run(self) -> None:
         results = []
@@ -271,7 +293,12 @@ class ConversionWorker(QObject):
             for index, source in enumerate(self.files, 1):
                 self.progress.emit(index-1, total, source.name)
                 try:
-                    dest, before, after = convert_one(source, self.preset, self.output_dir)
+                    dest, before, after = convert_one(
+                        source,
+                        self.preset,
+                        self.output_dir,
+                        self.name_suffix,
+                    )
                     results.append({"source":source,"destination":dest,"before":before,"after":after,"error":None})
                 except Exception as exc:
                     results.append({"source":source,"destination":None,"before":0,"after":0,"error":str(exc)})
@@ -843,6 +870,72 @@ class CustomFieldCard(QFrame):
         return value
 
 
+class NameSuffixCard(QFrame):
+    """Champ libre du suffixe ajouté au nom des fichiers produits."""
+
+    def __init__(self, value: str, tr):
+        super().__init__()
+        self.tr = tr
+        self.setObjectName("businessNamesCard")
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(18, 16, 18, 18)
+        layout.setSpacing(6)
+
+        self.title = QLabel("")
+        self.title.setObjectName("businessNamesTitle")
+        self.description = QLabel("")
+        self.description.setObjectName("businessNamesDescription")
+        self.description.setWordWrap(True)
+        layout.addWidget(self.title)
+        layout.addWidget(self.description)
+        layout.addSpacing(8)
+
+        self.label = QLabel("")
+        self.label.setObjectName("businessNameLabel")
+        self.input = QLineEdit(value)
+        self.input.setObjectName("businessNameInput")
+        self.input.setClearButtonEnabled(True)
+        self.input.setMaxLength(60)
+        layout.addWidget(self.label)
+        layout.addWidget(self.input)
+
+        # Les balises ne passent pas par le traducteur : elles contiennent des
+        # accolades, que Translator.text() interpréterait comme des champs de
+        # formatage. Elles restent en anglais, comme le bouton Languages.
+        self.tags = QLabel(
+            "  ·  ".join("{" + tag + "}" for tag in NAME_SUFFIX_TAGS)
+        )
+        self.tags.setObjectName("namingTags")
+        layout.addWidget(self.tags)
+
+        self.example = QLabel("")
+        self.example.setObjectName("namingExample")
+        layout.addWidget(self.example)
+
+        self.input.textChanged.connect(self.refresh_example)
+        self.retranslate()
+
+    def retranslate(self) -> None:
+        self.title.setText(self.tr.text("naming_title"))
+        self.description.setText(self.tr.text("naming_desc"))
+        self.label.setText(self.tr.text("naming_field"))
+        self.refresh_example()
+
+    def refresh_example(self) -> None:
+        suffix = render_name_suffix(self.input.text(), 1600, 1200, 82)
+        self.example.setText(
+            self.tr.text("naming_example", filename=f"photo{suffix}.webp")
+        )
+
+    def value(self) -> str:
+        """Suffixe nettoyé. Une chaîne vide reste une valeur valide."""
+        cleaned = sanitize_name_suffix(self.input.text())
+        if cleaned != self.input.text():
+            self.input.setText(cleaned)
+        return cleaned
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -861,6 +954,8 @@ class MainWindow(QMainWindow):
         )
         self.mode="wordpress"
         self.selected_preset=self.presets["wordpress"][2]
+        self.name_suffix=load_name_suffix()
+        self.name_suffix_card=None
         self.preset_cards=[]
         self.editor_cards={"wordpress":[],"prestashop":[]}
         self.business_name_inputs={}
@@ -1129,6 +1224,7 @@ class MainWindow(QMainWindow):
         self.editor_cards={"wordpress":[],"prestashop":[]}
         self.business_name_inputs={}
         self.business_name_defaults={}
+        self.name_suffix_card=None
 
         names_card=QFrame()
         names_card.setObjectName("businessNamesCard")
@@ -1166,6 +1262,9 @@ class MainWindow(QMainWindow):
 
         names_layout.addLayout(names_grid)
         self.settings_sections_layout.addWidget(names_card)
+
+        self.name_suffix_card=NameSuffixCard(self.name_suffix,self.tr)
+        self.settings_sections_layout.addWidget(self.name_suffix_card)
 
         for group in ("wordpress","prestashop"):
             title=QLabel(self._business_display_name(group))
@@ -1215,6 +1314,12 @@ class MainWindow(QMainWindow):
             )
 
         return result
+
+    def _collect_name_suffix(self) -> str:
+        if self.name_suffix_card is None:
+            return self.name_suffix
+        return self.name_suffix_card.value()
+
     def _restore_selected(self):
         if self.mode == "custom":
             self._sync_custom_preset()
@@ -1254,8 +1359,10 @@ class MainWindow(QMainWindow):
     def _save_settings(self):
         self.presets=self._collect_settings()
         self.business_groups=self._collect_business_groups()
+        self.name_suffix=self._collect_name_suffix()
         save_presets(self.presets)
         save_business_groups(self.business_groups)
+        save_name_suffix(self.name_suffix)
         self._restore_selected()
         self._render_presets()
         self._render_settings()
@@ -1271,9 +1378,11 @@ class MainWindow(QMainWindow):
         self.business_groups=clone_default_business_groups()
         self.custom_width=DEFAULT_CUSTOM_WIDTH
         self.custom_quality=DEFAULT_CUSTOM_QUALITY
+        self.name_suffix=DEFAULT_NAME_SUFFIX
         save_presets(self.presets)
         save_business_groups(self.business_groups)
         save_custom_export(self.custom_width,self.custom_quality)
+        save_name_suffix(self.name_suffix)
         self.custom_width_card.input.setText(str(self.custom_width))
         self.custom_quality_card.input.setText(str(self.custom_quality))
         if self.mode == "custom":
@@ -1302,6 +1411,7 @@ class MainWindow(QMainWindow):
         if self.editor_cards["wordpress"]:
             self.presets=self._collect_settings()
             self.business_groups=self._collect_business_groups()
+            self.name_suffix=self._collect_name_suffix()
             self._restore_selected()
         self.language=code
         self.tr.set_language(code)
@@ -1545,6 +1655,7 @@ class MainWindow(QMainWindow):
             files,
             self.selected_preset,
             self.active_output_directory,
+            self.name_suffix,
         )
         self.worker.moveToThread(self.thread)
         self.thread.started.connect(self.worker.run)
@@ -1778,6 +1889,17 @@ class MainWindow(QMainWindow):
         }
         QLineEdit#businessNameInput:focus {
             border:1px solid #FF6B2C;
+        }
+        QLabel#namingTags {
+            color:#8F97A4;
+            font-size:11px;
+            font-weight:700;
+            padding-top:3px;
+        }
+        QLabel#namingExample {
+            color:#FF8B58;
+            font-size:12px;
+            font-weight:750;
         }
         QFrame#conversionFooter {
             background:#12161D;

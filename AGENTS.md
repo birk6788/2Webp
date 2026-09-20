@@ -29,8 +29,9 @@ Sortie :
 
 - WebP uniquement ;
 - destination choisie par l'utilisateur ;
-- nom de sortie suffixé par le bord long réellement produit,
-  par exemple `photo.jpg` en 1600 px devient `photo_1600.webp` ;
+- nom de sortie suffixé selon le suffixe choisi dans les Réglages,
+  `_{long}` par défaut : `photo.jpg` en 1600 px devient `photo_1600.webp` ;
+- le nom d'origine reste toujours en tête du nom produit ;
 - originaux conservés ;
 - aucun écrasement silencieux.
 

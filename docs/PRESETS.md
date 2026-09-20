@@ -45,6 +45,34 @@ Deux tailles différentes de la même source cohabitent donc sans se gêner. Le
 suffixe numérique `-2`, `-3` ne sert plus qu'aux conversions strictement
 identiques.
 
+### Suffixe modifiable
+
+Le suffixe se règle dans **Réglages**, carte « Nom des fichiers produits ».
+C'est un champ libre : on y tape ce qu'on veut, avec ou sans balises.
+
+| Balise | Valeur |
+|---|---|
+| `{long}` | bord long réel du fichier produit |
+| `{width}` | largeur réelle |
+| `{height}` | hauteur réelle |
+| `{quality}` | qualité WebP appliquée |
+
+Les équivalents français `{bordlong}`, `{largeur}`, `{hauteur}` et
+`{qualite}` sont acceptés. Une balise inconnue reste affichée telle quelle
+dans la ligne d'exemple, ce qui la rend visible avant conversion.
+
+Exemples : `_{long}` donne `photo_1600.webp`, `-web` donne
+`photo-web.webp`, `_{width}x{height}` donne `photo_1600x1067.webp`.
+
+Un suffixe vide est une valeur valide : le fichier produit reprend
+exactement le nom de la source, `photo.webp`. Le nom d'origine précède
+toujours le suffixe, donc un lot ne peut jamais se replier sur un seul nom.
+
+Les caractères refusés par Windows dans un nom de fichier — `\ / : * ? " < >
+|` — sont retirés à l'enregistrement. Le suffixe est stocké dans
+`settings.json` sous `name_suffix`, et « Restaurer les réglages » le remet à
+`_{long}`.
+
 ## Réglages utilisateur
 
 Chaque preset WordPress ou PrestaShop peut modifier :

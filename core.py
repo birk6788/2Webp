@@ -11,6 +11,60 @@ SUPPORTED_EXTENSIONS = {'.jpg', '.jpeg', '.png'}
 DEFAULT_CUSTOM_WIDTH = 1800
 DEFAULT_CUSTOM_QUALITY = 82
 
+# Suffixe ajouté au nom d'origine. Le nom source reste toujours devant, donc
+# un lot ne peut jamais se replier sur un seul et même nom de sortie.
+DEFAULT_NAME_SUFFIX = "_{long}"
+
+# Balises en anglais, comme le bouton Languages : elles restent lisibles dans
+# les 22 langues. Les équivalents français sont acceptés en plus.
+NAME_SUFFIX_TAGS = ("long", "width", "height", "quality")
+NAME_SUFFIX_ALIASES = {
+    "bordlong": "long",
+    "largeur": "width",
+    "hauteur": "height",
+    "qualite": "quality",
+    "qualité": "quality",
+}
+
+# Caractères que Windows refuse dans un nom de fichier.
+FORBIDDEN_NAME_CHARS = '\\/:*?"<>|'
+
+
+def sanitize_name_suffix(template: str) -> str:
+    """Retire d'un suffixe ce qu'un nom de fichier Windows ne peut pas porter."""
+    cleaned = "".join(
+        char for char in str(template)
+        if char not in FORBIDDEN_NAME_CHARS and char >= " "
+    )
+    return cleaned.strip().rstrip(". ")
+
+
+def render_name_suffix(
+    template: str,
+    width: int,
+    height: int,
+    quality: int,
+) -> str:
+    """Remplace les balises du suffixe par les valeurs réelles de la sortie.
+
+    Une balise inconnue est laissée telle quelle : l'utilisateur la voit dans
+    la ligne d'exemple des Réglages et corrige lui-même.
+    """
+    values = {
+        "long": max(int(width), int(height)),
+        "width": int(width),
+        "height": int(height),
+        "quality": int(quality),
+    }
+    for alias, tag in NAME_SUFFIX_ALIASES.items():
+        values[alias] = values[tag]
+
+    rendered = str(template)
+    for name, value in values.items():
+        rendered = rendered.replace("{" + name + "}", str(value))
+
+    return sanitize_name_suffix(rendered)
+
 
 GROUP_TITLE_KEYS = {
     "wordpress": "wp_title",
@@ -194,24 +248,23 @@ def resolve_output_directory(
 def unique_webp_destination(
     source: Path,
     output_dir: Path | None = None,
-    long_edge: int | None = None,
+    suffix: str = "",
 ) -> Path:
     """Return a non-existing WebP path without overwriting an earlier file.
 
-    Le bord long réellement produit est ajouté au nom quand il est fourni :
-    photo.jpg sorti en 1600 px devient photo_1600.webp. Deux conversions de
-    la même source à des tailles différentes ne se disputent donc plus le
-    même nom, et le suffixe numérique -2, -3 ne sert plus qu'aux conversions
-    strictement identiques.
+    Le suffixe est déjà résolu par render_name_suffix : photo.jpg sorti en
+    1600 px devient photo_1600.webp avec le suffixe par défaut. Le suffixe
+    numérique -2, -3 passe après, et reste la protection contre l'écrasement
+    quel que soit le suffixe choisi par l'utilisateur.
     """
     directory = resolve_output_directory(source, output_dir)
-    stem = source.stem if long_edge is None else f"{source.stem}_{long_edge}"
+    stem = f"{source.stem}{suffix}"
 
     candidate = directory / f"{stem}.webp"
-    suffix = 2
+    index = 2
     while candidate.exists():
-        candidate = directory / f"{stem}-{suffix}.webp"
-        suffix += 1
+        candidate = directory / f"{stem}-{index}.webp"
+        index += 1
     return candidate
 
 
@@ -219,6 +272,7 @@ def convert_one(
     source: Path,
     preset: Preset,
     output_dir: Path | None = None,
+    name_suffix: str = DEFAULT_NAME_SUFFIX,
 ) -> tuple[Path, int, int]:
     directory = resolve_output_directory(source, output_dir)
     before = source.stat().st_size
@@ -242,13 +296,18 @@ def convert_one(
 
         output = output.convert('RGBA' if 'A' in output.getbands() else 'RGB')
 
-        # Le nom de sortie porte le bord long réel, connu seulement ici :
-        # le mode bord long n'agrandit jamais, une source de 1200 px traitée
-        # avec un preset 1600 px reste à 1200 px.
+        # Le suffixe est résolu ici, seul endroit où les dimensions réelles
+        # sont connues : le mode bord long n'agrandit jamais, une source de
+        # 1200 px traitée avec un preset 1600 px reste à 1200 px.
         destination = unique_webp_destination(
             source,
             directory,
-            max(output.width, output.height),
+            render_name_suffix(
+                name_suffix,
+                output.width,
+                output.height,
+                preset.quality,
+            ),
         )
 
         options = {'format': 'WEBP', 'quality': preset.quality, 'method': 6}
