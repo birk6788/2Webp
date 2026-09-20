@@ -46,6 +46,7 @@ if (-not $SkipTests) {
     "test_business_groups.py",
     "test_conversion.py",
     "test_conversion_ui.py",
+    "test_repeat_conversion.py",
     "test_settings_ui.py",
     "smoke_test.py",
     "test_clean_branding.py",
