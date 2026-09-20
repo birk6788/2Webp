@@ -22,7 +22,7 @@ from PySide6.QtWidgets import (
 )
 
 APP_NAME = "2Webp"
-APP_VERSION = "0.8.5"
+APP_VERSION = "0.8.6"
 
 
 def app_icon_path() -> Path:

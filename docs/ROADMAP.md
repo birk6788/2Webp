@@ -1,5 +1,13 @@
 # Roadmap
 
+## En cours — v0.8.6
+
+- correction du second lot resté sans effet après une première conversion ;
+- nom de sortie suffixé par le bord long réel.
+
+Reste à faire avant livraison : build Windows des trois formats, contrôle
+visuel, tag `v0.8.6`.
+
 ## Livrée — v0.8.5
 
 - WordPress / Web ;

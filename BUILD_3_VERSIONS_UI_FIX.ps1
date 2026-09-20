@@ -33,11 +33,6 @@ foreach ($File in $RequiredFiles) {
 $Version = (Get-Content ".\VERSION" -Raw).Trim()
 Write-Host "Version détectée : $Version" -ForegroundColor Yellow
 
-if ($Version -ne "0.8.5") {
-    Write-Warning "Le fichier VERSION indique '$Version' et non '0.8.5'."
-    Write-Warning "Le build utilisera la version réellement indiquée dans le projet."
-}
-
 $PythonCommand = $null
 if (Get-Command py -ErrorAction SilentlyContinue) {
     $PythonCommand = "py"

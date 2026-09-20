@@ -1,9 +1,9 @@
 {
   "project": "2Webp",
   "stable_version": "0.8.5",
-  "development_version": "0.8.5",
-  "development_branch": "main",
-  "release_status": "0.8.5 built and running in production since 2026-08-05",
+  "development_version": "0.8.6",
+  "development_branch": "feature/v0.8.6",
+  "release_status": "0.8.5 in production since 2026-08-05; 0.8.6 in development",
   "platform": "Windows 10/11 x64",
   "author": "Jean-Philippe Bloch",
   "license": "MIT",
@@ -31,9 +31,9 @@
     "rest_of_workflow_unchanged": true
   },
   "release_assets_expected": [
-    "2Webp-v0.8.5-portable.exe",
-    "2Webp-v0.8.5-windows-x64.zip",
-    "2Webp-v0.8.5-setup.exe",
+    "2Webp-v0.8.6-portable.exe",
+    "2Webp-v0.8.6-windows-x64.zip",
+    "2Webp-v0.8.6-setup.exe",
     "SHA256SUMS.txt"
   ]
 }

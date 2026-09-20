@@ -4,7 +4,7 @@
 
 Convertisseur WebP libre pour Windows, conçu pour transformer rapidement des images JPG, JPEG et PNG en fichiers WebP prêts pour le web.
 
-La version candidate documentée dans cette branche est **2Webp v0.8.5**. La dernière version taguée reste v0.8.0 jusqu’à la validation Windows finale.
+La version en production est **2Webp v0.8.5**. La **v0.8.6** est en cours de développement sur `feature/v0.8.6`. La dernière version taguée reste v0.8.0.
 
 ## Pourquoi 2Webp
 
@@ -21,14 +21,15 @@ Principes non négociables :
 - interface Windows sombre, compacte et lisible ;
 - 22 langues européennes en alphabet latin.
 
-## Fonctionnalités v0.8.5
+## Fonctionnalités
 
 - entrées JPG, JPEG et PNG ;
 - sortie WebP ;
 - glisser-déposer de fichiers ou d'un dossier ;
 - destination par défaut à côté des originaux ;
 - destination personnalisée mémorisée tant qu'elle existe ;
-- renommage automatique en cas de doublon (`image-2.webp`, `image-3.webp`, etc.) ;
+- nom de sortie suffixé par le bord long réel (`image_1600.webp`) ;
+- renommage automatique en cas de doublon (`image_1600-2.webp`, etc.) ;
 - quatre presets WordPress / Web ;
 - quatre presets PrestaShop ;
 - noms des deux métiers personnalisables ;

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.6 — en développement
+
+- correction : un second lot déposé après une première conversion ne
+  déclenchait plus rien, il fallait fermer et rouvrir l'application ;
+- le nom du fichier produit porte désormais le bord long réel,
+  `photo.jpg` en 1600 px devient `photo_1600.webp` ;
+- deux tailles différentes de la même source ne se disputent plus le nom ;
+- le suffixe numérique `-2`, `-3` ne sert plus qu'aux conversions identiques.
+
 ## 0.8.5 — en production depuis le 5 août 2026
 
 - ajout du troisième workflow **Custom** ;
