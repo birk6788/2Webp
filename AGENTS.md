@@ -29,6 +29,8 @@ Sortie :
 
 - WebP uniquement ;
 - destination choisie par l'utilisateur ;
+- nom de sortie suffixé par le bord long réellement produit,
+  par exemple `photo.jpg` en 1600 px devient `photo_1600.webp` ;
 - originaux conservés ;
 - aucun écrasement silencieux.
 

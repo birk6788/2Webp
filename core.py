@@ -180,16 +180,37 @@ def cover_crop(image: Image.Image, width: int, height: int) -> Image.Image:
     )
 
 
-def unique_webp_destination(source: Path, output_dir: Path | None = None) -> Path:
-    """Return a non-existing WebP path without overwriting an earlier file."""
+def resolve_output_directory(
+    source: Path,
+    output_dir: Path | None = None,
+) -> Path:
+    """Return the directory that will receive the WebP file."""
     directory = Path(output_dir) if output_dir is not None else source.parent
     if not directory.is_dir():
         raise FileNotFoundError(f'Output directory is unavailable: {directory}')
+    return directory
 
-    candidate = directory / f"{source.stem}.webp"
+
+def unique_webp_destination(
+    source: Path,
+    output_dir: Path | None = None,
+    long_edge: int | None = None,
+) -> Path:
+    """Return a non-existing WebP path without overwriting an earlier file.
+
+    Le bord long réellement produit est ajouté au nom quand il est fourni :
+    photo.jpg sorti en 1600 px devient photo_1600.webp. Deux conversions de
+    la même source à des tailles différentes ne se disputent donc plus le
+    même nom, et le suffixe numérique -2, -3 ne sert plus qu'aux conversions
+    strictement identiques.
+    """
+    directory = resolve_output_directory(source, output_dir)
+    stem = source.stem if long_edge is None else f"{source.stem}_{long_edge}"
+
+    candidate = directory / f"{stem}.webp"
     suffix = 2
     while candidate.exists():
-        candidate = directory / f"{source.stem}-{suffix}.webp"
+        candidate = directory / f"{stem}-{suffix}.webp"
         suffix += 1
     return candidate
 
@@ -199,7 +220,7 @@ def convert_one(
     preset: Preset,
     output_dir: Path | None = None,
 ) -> tuple[Path, int, int]:
-    destination = unique_webp_destination(source, output_dir)
+    directory = resolve_output_directory(source, output_dir)
     before = source.stat().st_size
 
     with Image.open(source) as opened:
@@ -220,6 +241,16 @@ def convert_one(
             raise ValueError(f'Unknown mode: {preset.mode}')
 
         output = output.convert('RGBA' if 'A' in output.getbands() else 'RGB')
+
+        # Le nom de sortie porte le bord long réel, connu seulement ici :
+        # le mode bord long n'agrandit jamais, une source de 1200 px traitée
+        # avec un preset 1600 px reste à 1200 px.
+        destination = unique_webp_destination(
+            source,
+            directory,
+            max(output.width, output.height),
+        )
+
         options = {'format': 'WEBP', 'quality': preset.quality, 'method': 6}
         if icc_profile:
             options['icc_profile'] = icc_profile

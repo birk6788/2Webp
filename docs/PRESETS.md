@@ -28,6 +28,23 @@ Custom utilise toujours `long_edge` et ne propose que deux valeurs directes :
 
 Les proportions sont conservées et les petites images ne sont jamais agrandies. Custom n'ajoute ni hauteur, ni contain, ni cover, ni recadrage.
 
+## Nom des fichiers produits — v0.8.6
+
+Le nom de sortie reprend le nom de la source et y ajoute le bord long
+réellement produit :
+
+- `photo.jpg` en preset 1600 px → `photo_1600.webp` ;
+- `produit.jpg` en 1200 × 1200 Adapter au cadre → `produit_1200.webp` ;
+- `banniere.jpg` en 1920 × 600 Recadrer pour remplir → `banniere_1920.webp`.
+
+La valeur est celle du fichier obtenu, pas celle du preset. Une source de
+1200 px traitée avec le preset 1600 px n'étant jamais agrandie, elle sort en
+`photo_1200.webp`.
+
+Deux tailles différentes de la même source cohabitent donc sans se gêner. Le
+suffixe numérique `-2`, `-3` ne sert plus qu'aux conversions strictement
+identiques.
+
 ## Réglages utilisateur
 
 Chaque preset WordPress ou PrestaShop peut modifier :

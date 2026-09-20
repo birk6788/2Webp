@@ -8,6 +8,7 @@ with tempfile.TemporaryDirectory() as tmp:
     src=Path(tmp)/'photo.jpg'; Image.new('RGB',(2000,1000),'white').save(src,quality=95)
     dest,before,after=convert_one(src,Preset('test','',False,800,None,80,'long_edge'))
     assert src.exists() and dest.exists() and dest.suffix=='.webp'
+    assert dest.name=='photo_800.webp'
     with Image.open(dest) as out: assert out.size==(800,400)
 print('OK: conversion')
 
@@ -17,8 +18,8 @@ with tempfile.TemporaryDirectory() as tmp:
     Image.new('RGB',(300,200),'white').save(source)
     first,_,_=convert_one(source,Preset('test','',False,300,None,80,'long_edge'))
     second,_,_=convert_one(source,Preset('test','',False,300,None,80,'long_edge'))
-    assert first.name=='same-name.webp'
-    assert second.name=='same-name-2.webp'
+    assert first.name=='same-name_300.webp'
+    assert second.name=='same-name_300-2.webp'
 
 with tempfile.TemporaryDirectory() as tmp:
     root=Path(tmp)
@@ -30,3 +31,49 @@ with tempfile.TemporaryDirectory() as tmp:
     assert dest.parent==output_dir
     assert source.exists()
 print('OK: safe and custom destinations')
+
+# Le suffixe porte le bord long reellement produit, pas la valeur du preset.
+with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp)
+
+    # Bord long : une source plus petite que le preset n'est jamais agrandie.
+    petite=root/'petite.jpg'
+    Image.new('RGB',(1200,800),'white').save(petite)
+    dest,_,_=convert_one(petite,Preset('test','',False,1600,None,80,'long_edge'))
+    assert dest.name=='petite_1200.webp', dest.name
+
+    # Portrait : le bord long est la hauteur.
+    portrait=root/'portrait.jpg'
+    Image.new('RGB',(1000,2500),'white').save(portrait)
+    dest,_,_=convert_one(portrait,Preset('test','',False,1600,None,80,'long_edge'))
+    assert dest.name=='portrait_1600.webp', dest.name
+
+    # Adapter au cadre : le canevas fixe donne toujours le meme bord long.
+    carre=root/'carre.jpg'
+    Image.new('RGB',(3000,2000),'white').save(carre)
+    dest,_,_=convert_one(carre,Preset('test','',False,1200,1200,84,'contain'))
+    assert dest.name=='carre_1200.webp', dest.name
+
+    # Recadrer pour remplir : idem, bord long du format cible.
+    banniere=root/'banniere.jpg'
+    Image.new('RGB',(4000,3000),'white').save(banniere)
+    dest,_,_=convert_one(banniere,Preset('test','',False,1920,600,82,'cover'))
+    assert dest.name=='banniere_1920.webp', dest.name
+
+    # Deux tailles differentes de la meme source ne se disputent plus le nom.
+    source=root/'serie.jpg'
+    Image.new('RGB',(3000,2000),'white').save(source)
+    petit,_,_=convert_one(source,Preset('test','',False,800,None,78,'long_edge'))
+    grand,_,_=convert_one(source,Preset('test','',False,1920,None,82,'long_edge'))
+    assert petit.name=='serie_800.webp', petit.name
+    assert grand.name=='serie_1920.webp', grand.name
+
+# Sans bord long fourni, le nom reste celui de la source.
+with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp)
+    source=root/'brut.jpg'
+    Image.new('RGB',(400,400),'white').save(source)
+    assert unique_webp_destination(source).name=='brut.webp'
+    assert unique_webp_destination(source,None,1600).name=='brut_1600.webp'
+
+print('OK: suffixe de bord long dans le nom de sortie')

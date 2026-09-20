@@ -39,7 +39,8 @@ Les noms WordPress / Web et PrestaShop sont personnalisables. Custom reste un wo
 
 - originaux conservés ;
 - aucun écrasement silencieux ;
-- suffixe numérique en cas de doublon ;
+- nom de sortie suffixé par le bord long réel : `photo_1600.webp` ;
+- suffixe numérique en cas de doublon strict : `photo_1600-2.webp` ;
 - bord long sans agrandissement pour WordPress et Custom ;
 - contain ou cover pour PrestaShop ;
 - profil ICC transmis à Pillow quand il existe ;
