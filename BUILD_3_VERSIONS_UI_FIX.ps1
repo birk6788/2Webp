@@ -42,23 +42,32 @@ if (Get-Command py -ErrorAction SilentlyContinue) {
     throw "Python est introuvable. Installe Python 3.14 ou ajoute-le au PATH."
 }
 
-$VenvPython = Join-Path $Root ".venv\Scripts\python.exe"
+# L'environnement virtuel vit hors du dossier synchronisé : OneDrive
+# verrouille les fichiers pendant la synchronisation et casse PyInstaller.
+# Surchargeable par TWOWEBP_VENV.
+$VenvRoot = if ($env:TWOWEBP_VENV) {
+    $env:TWOWEBP_VENV
+} else {
+    Join-Path ((Split-Path $Root -Qualifier) + "\") "2Webp-dev\venv"
+}
+$VenvPython = Join-Path $VenvRoot "Scripts\python.exe"
+Write-Host "Environnement virtuel : $VenvRoot" -ForegroundColor DarkGray
 
 if (-not (Test-Path $VenvPython)) {
-    Write-Host "Création de l'environnement virtuel .venv..." -ForegroundColor Yellow
+    Write-Host "Création de l'environnement virtuel..." -ForegroundColor Yellow
 
     if ($PythonCommand -eq "py") {
-        & py -3.14 -m venv ".venv"
+        & py -3.14 -m venv $VenvRoot
         if ($LASTEXITCODE -ne 0) {
             Write-Warning "Python 3.14 non trouvé via py -3.14, tentative avec Python par défaut."
-            & py -m venv ".venv"
+            & py -m venv $VenvRoot
         }
     } else {
-        & python -m venv ".venv"
+        & python -m venv $VenvRoot
     }
 
     if ($LASTEXITCODE -ne 0 -or -not (Test-Path $VenvPython)) {
-        throw "Impossible de créer l'environnement virtuel .venv."
+        throw "Impossible de créer l'environnement virtuel dans $VenvRoot."
     }
 }
 

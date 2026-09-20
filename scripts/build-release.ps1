@@ -10,10 +10,23 @@ if ($PSVersionTable.PSVersion.Major -ge 7) {
 $Root = Split-Path -Parent $PSScriptRoot
 Set-Location $Root
 
+# Les sous-produits de build vivent hors du dossier synchronisé : OneDrive
+# verrouille les fichiers pendant la synchronisation et fait échouer
+# PyInstaller. Ils restent sur le disque du dépôt : PyInstaller calcule un
+# chemin relatif entre --specpath et app.py, et refuse deux disques
+# différents. Surchargeable par TWOWEBP_BUILD_ROOT.
+$BuildRoot = if ($env:TWOWEBP_BUILD_ROOT) {
+  $env:TWOWEBP_BUILD_ROOT
+} else {
+  Join-Path ((Split-Path $Root -Qualifier) + "\") "2Webp-dev"
+}
+
 $Version = (Get-Content .\VERSION -Raw).Trim()
 $ReleaseDir = Join-Path $Root "release"
-$OnedirDist = Join-Path $Root "dist\onedir"
-$OnefileDist = Join-Path $Root "dist\onefile"
+$WorkDir = Join-Path $BuildRoot "build"
+$SpecDir = Join-Path $WorkDir "specs"
+$OnedirDist = Join-Path $BuildRoot "dist\onedir"
+$OnefileDist = Join-Path $BuildRoot "dist\onefile"
 $Python = (Get-Command python -ErrorAction Stop).Source
 
 function Invoke-Python {
@@ -57,11 +70,12 @@ if (-not $SkipTests) {
   }
 }
 
-Remove-Item .\build -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item .\dist -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item $WorkDir -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item (Join-Path $BuildRoot "dist") -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item $ReleaseDir -Recurse -Force -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Path $ReleaseDir | Out-Null
-New-Item -ItemType Directory -Path .\build\specs | Out-Null
+New-Item -ItemType Directory -Path $ReleaseDir -Force | Out-Null
+New-Item -ItemType Directory -Path $SpecDir -Force | Out-Null
+Write-Host "Sous-produits de build : $BuildRoot" -ForegroundColor DarkGray
 
 Write-Host "Build onedir..." -ForegroundColor Yellow
 Invoke-Python -Arguments @(
@@ -72,8 +86,8 @@ Invoke-Python -Arguments @(
   "--onedir",
   "--name", "2Webp",
   "--distpath", $OnedirDist,
-  "--workpath", ".\build\onedir",
-  "--specpath", ".\build\specs",
+  "--workpath", (Join-Path $WorkDir "onedir"),
+  "--specpath", $SpecDir,
   "--icon", (Join-Path $Root "assets\brand\2Webp-taskbar-round.ico"),
   "--add-data", ((Join-Path $Root "assets") + ";assets"),
   "--add-data", ((Join-Path $Root "translations") + ";translations"),
@@ -102,8 +116,8 @@ Invoke-Python -Arguments @(
   "--splash-center", "active",
   "--name", $PortableName,
   "--distpath", $OnefileDist,
-  "--workpath", ".\build\onefile",
-  "--specpath", ".\build\specs",
+  "--workpath", (Join-Path $WorkDir "onefile"),
+  "--specpath", $SpecDir,
   "--icon", (Join-Path $Root "assets\brand\2Webp-taskbar-round.ico"),
   "--add-data", ((Join-Path $Root "assets") + ";assets"),
   "--add-data", ((Join-Path $Root "translations") + ";translations"),
@@ -150,7 +164,7 @@ $Iscc = $IsccCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
 if (-not $Iscc) {
   throw "Inno Setup 6 est requis. Installez-le puis relancez ce script."
 }
-& $Iscc "/DMyAppVersion=$Version" ".\installer\2Webp.iss"
+& $Iscc "/DMyAppVersion=$Version" "/DMyAppSource=$OnedirApp" ".\installer\2Webp.iss"
 if ($LASTEXITCODE -ne 0) {
   throw "Inno Setup a échoué avec le code $LASTEXITCODE."
 }

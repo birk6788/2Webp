@@ -2,6 +2,12 @@
   #define MyAppVersion "0.8.6"
 #endif
 
+; Le build onedir n'est plus forcement sous le depot : scripts/build-release.ps1
+; le place hors du dossier synchronise et passe son chemin en /DMyAppSource.
+#ifndef MyAppSource
+  #define MyAppSource "..\dist\onedir\2Webp"
+#endif
+
 #define MyAppName "2Webp"
 #define MyAppPublisher "Jean-Philippe Bloch"
 #define MyAppURL "https://www.jpbloch.fr"
@@ -43,7 +49,7 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "Créer un raccourci sur le Bureau"; GroupDescription: "Raccourcis :"; Flags: unchecked
 
 [Files]
-Source: "..\dist\onedir\2Webp\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyAppSource}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\2Webp"; Filename: "{app}\{#MyAppExeName}"
