@@ -1501,10 +1501,33 @@ class MainWindow(QMainWindow):
     def _choose_files(self):
         files,_=QFileDialog.getOpenFileNames(self,self.tr.text("dialog_choose"),"","Images (*.jpg *.jpeg *.png)")
         if files: self._receive_paths(files)
+    def _conversion_running(self) -> bool:
+        """Vrai uniquement si un lot est réellement en cours.
+
+        Le QThread est détruit côté C++ par deleteLater à la fin de chaque lot.
+        L'attribut Python survit et devient une coquille vide : toute méthode
+        appelée dessus lève RuntimeError. En version packagée (--windowed) cette
+        exception partait dans un stderr inexistant et le deuxième dépôt restait
+        sans effet jusqu'au redémarrage.
+        """
+        thread = self.thread
+        if thread is None:
+            return False
+        try:
+            return thread.isRunning()
+        except RuntimeError:
+            self._release_conversion()
+            return False
+
+    def _release_conversion(self) -> None:
+        """Libère les références Python vers le thread et le worker terminés."""
+        self.thread = None
+        self.worker = None
+
     def _receive_paths(self,paths):
         files=iter_image_files(paths)
         if not files: self._show_toast(self.tr.text("no_image_title"),self.tr.text("no_image_text"),"warning"); return
-        if self.thread and self.thread.isRunning(): self._show_toast(self.tr.text("busy_title"),self.tr.text("busy_text"),"info"); return
+        if self._conversion_running(): self._show_toast(self.tr.text("busy_title"),self.tr.text("busy_text"),"info"); return
         self._start_conversion(files)
     def _start_conversion(self, files):
         self.active_output_directory = self._validated_output_directory()
@@ -1533,6 +1556,7 @@ class MainWindow(QMainWindow):
         self.worker.completed.connect(self.worker.deleteLater)
         self.worker.failed.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
+        self.thread.finished.connect(self._release_conversion)
         self.thread.start()
 
     def _on_progress(self, current, total, filename):
