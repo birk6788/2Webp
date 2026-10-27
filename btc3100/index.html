@@ -30,9 +30,31 @@ th{background:var(--card)}
 .warn{background:var(--warn-bg);border-color:var(--warn-line)}
 .ok{background:var(--ok-bg)}
 .box b:first-child{display:block}
-.modes{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.modes .box{margin:0}
-.modes h3{margin-top:0;color:var(--acc)}
+figure{margin:20px 0;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{color:var(--mut);font-size:.9rem;margin-top:6px}
+.s-body{fill:var(--card);stroke:var(--fg);stroke-width:2}
+.s-slot{fill:var(--bg);stroke:var(--mut);stroke-width:1.5}
+.s-lcd{fill:#1d6fd1;stroke:var(--fg);stroke-width:1.5}
+.s-cell{fill:none;stroke:#cfe3ff;stroke-width:1}
+.s-btn{fill:var(--bg);stroke:var(--fg);stroke-width:1.5}
+.s-t{fill:var(--fg);font:600 13px system-ui,sans-serif}
+.s-m{fill:var(--mut);font:12px system-ui,sans-serif}
+.s-l{fill:#fff;font:600 8px system-ui,sans-serif}
+.s-d{fill:#fff;font:700 22px ui-monospace,monospace}
+.s-n{fill:var(--acc);font:700 14px system-ui,sans-serif}
+.s-lead{stroke:var(--acc);stroke-width:1.5;fill:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card-h{display:flex;gap:12px;align-items:center}
+.card-h svg{width:96px;flex:none}
+.card h3{margin:0;color:var(--acc)}
+.tag{font-size:.8rem;color:var(--mut)}
+.cv{fill:none;stroke:var(--acc);stroke-width:3;stroke-linecap:round}
+.seq{margin:8px 0;padding-left:20px;font-size:.95rem}
+.card dl{margin:8px 0 0;font-size:.9rem}
+.card dt{font-weight:700;margin-top:6px}
+.card dd{margin:0;color:var(--mut)}
+.modes{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
 @media print{nav{display:none}body{font-size:11pt}h2{break-after:avoid}.box,tr{break-inside:avoid}}
 </style>
@@ -54,6 +76,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:v
     <li><a href="#specs">Caractéristiques techniques</a></li>
     <li><a href="#demarrage">Mise en service</a></li>
     <li><a href="#modes">Modes de fonctionnement</a></li>
+    <li><a href="#tests">Procédures de test</a></li>
     <li><a href="#compat">Compatibilité des accus</a></li>
     <li><a href="#courants">Choix des courants et chaleur</a></li>
     <li><a href="#entretien">Entretien</a></li>
@@ -101,13 +124,47 @@ En cas de surchauffe, le courant de charge passe à 0 mA jusqu'à ce que la temp
 <section id="apercu">
 <h2>3. Vue d'ensemble</h2>
 <p>Le chargeur est doté de quatre baies indépendantes. L'écran LCD intégré affiche en temps réel les informations de chaque baie. Un ventilateur intégré limite l'échauffement de l'appareil pendant le fonctionnement.</p>
-<p>Trois boutons servent à piloter l'appareil :</p>
+<figure>
+<svg viewBox="0 0 520 400" role="img" aria-label="Schéma de la face avant : quatre baies, écran LCD à quatre zones, boutons MODE, DISPLAY, CURRENT et SLOT">
+  <rect class="s-body" x="60" y="10" width="400" height="380" rx="16"/>
+  <text class="s-t" x="80" y="36">BT-C3100</text><text class="s-t" x="400" y="36">OPUS</text>
+  <g>
+    <rect class="s-slot" x="82" y="50" width="76" height="150" rx="8"/><rect class="s-slot" x="168" y="50" width="76" height="150" rx="8"/>
+    <rect class="s-slot" x="276" y="50" width="76" height="150" rx="8"/><rect class="s-slot" x="362" y="50" width="76" height="150" rx="8"/>
+  </g>
+  <text class="s-m" x="120" y="128" text-anchor="middle">Baie</text><text class="s-m" x="206" y="128" text-anchor="middle">Baie</text>
+  <text class="s-m" x="314" y="128" text-anchor="middle">Baie</text><text class="s-m" x="400" y="128" text-anchor="middle">Baie</text>
+  <text class="s-n" x="120" y="146" text-anchor="middle">1</text><text class="s-n" x="206" y="146" text-anchor="middle">2</text>
+  <text class="s-n" x="314" y="146" text-anchor="middle">3</text><text class="s-n" x="400" y="146" text-anchor="middle">4</text>
+  <rect class="s-lcd" x="82" y="228" width="356" height="86" rx="6"/>
+  <g class="s-cell"><rect class="s-cell" x="86" y="232" width="86" height="78"/><rect class="s-cell" x="176" y="232" width="86" height="78"/><rect class="s-cell" x="266" y="232" width="86" height="78"/><rect class="s-cell" x="356" y="232" width="78" height="78"/></g>
+  <g class="s-l">
+    <text x="90" y="244">DISCHARGE</text><text x="90" y="254">REFRESH</text><text x="90" y="264">QUICK TEST</text>
+    <text x="180" y="244">DISCHARGE</text><text x="180" y="254">REFRESH</text><text x="180" y="264">QUICK TEST</text>
+    <text x="270" y="244">DISCHARGE</text><text x="270" y="254">REFRESH</text><text x="270" y="264">QUICK TEST</text>
+    <text x="360" y="244">DISCHARGE</text><text x="360" y="254">REFRESH</text><text x="360" y="264">QUICK TEST</text>
+  </g>
+  <g class="s-d"><text x="94" y="298">88:88</text><text x="184" y="298">88:88</text><text x="274" y="298">88:88</text><text x="364" y="298">88:88</text></g>
+  <rect class="s-btn" x="92" y="340" width="64" height="24" rx="4"/><rect class="s-btn" x="168" y="340" width="64" height="24" rx="4"/>
+  <rect class="s-btn" x="288" y="340" width="64" height="24" rx="4"/><rect class="s-btn" x="364" y="340" width="64" height="24" rx="4"/>
+  <text class="s-t" x="124" y="334" text-anchor="middle">MODE</text><text class="s-t" x="200" y="334" text-anchor="middle">DISPLAY</text>
+  <text class="s-t" x="320" y="334" text-anchor="middle">CURRENT</text><text class="s-t" x="396" y="334" text-anchor="middle">SLOT</text>
+</svg>
+<figcaption>Fig. 1 – Face avant : 4 baies, écran LCD (une zone par baie) et 4 boutons. Schéma redessiné, non à l'échelle.</figcaption>
+</figure>
+<p>Quatre boutons servent à piloter l'appareil :</p>
 <div class="table"><table>
 <tr><th>Bouton</th><th>Rôle</th></tr>
 <tr><td><strong>MODE</strong></td><td>Fait défiler les modes de fonctionnement.</td></tr>
+<tr><td><strong>DISPLAY</strong></td><td>Change les informations affichées à l'écran (tension, courant, durée, capacité).</td></tr>
 <tr><td><strong>CURRENT</strong></td><td>Règle le courant du mode sélectionné.</td></tr>
 <tr><td><strong>SLOT</strong></td><td>Sélectionne une baie pour lui appliquer des réglages propres.</td></tr>
 </table></div>
+<p>À l'allumage, l'écran affiche un test où tous les segments sont visibles.</p>
+<div class="box">
+<b>À vérifier</b>
+Le rôle exact du bouton DISPLAY est déduit des photos du manuel (il n'est pas décrit dans le texte). Confirmez-le sur votre appareil.
+</div>
 </section>
 
 <section id="specs">
@@ -130,6 +187,20 @@ En cas de surchauffe, le courant de charge passe à 0 mA jusqu'à ce que la temp
 <section id="demarrage">
 <h2>5. Mise en service</h2>
 <h3>5.1 Brancher l'alimentation</h3>
+<figure>
+<svg viewBox="0 0 420 200" role="img" aria-label="Schéma de la face arrière : ventilateur et prise d'alimentation 12 V 3 A">
+  <rect class="s-body" x="20" y="20" width="380" height="140" rx="12"/>
+  <rect class="s-slot" x="50" y="40" width="110" height="100" rx="8"/>
+  <circle class="s-cell" cx="105" cy="90" r="38" style="stroke:var(--mut)"/>
+  <g stroke="var(--mut)" stroke-width="2"><path d="M105 90 L105 56"/><path d="M105 90 L137 100"/><path d="M105 90 L78 112"/></g>
+  <circle cx="105" cy="90" r="6" fill="var(--mut)"/>
+  <circle class="s-slot" cx="270" cy="75" r="20"/><circle cx="270" cy="75" r="7" fill="var(--mut)"/>
+  <text class="s-t" x="105" y="156" text-anchor="middle">Ventilateur</text>
+  <text class="s-t" x="270" y="120" text-anchor="middle">Entrée 12 V ⎓ 3,0 A</text>
+  <text class="s-m" x="270" y="138" text-anchor="middle">Polarité : voir symbole sous la prise</text>
+</svg>
+<figcaption>Fig. 2 – Face arrière : ventilateur et prise d'alimentation 12 V / 3,0 A.</figcaption>
+</figure>
 <ol>
   <li>Branchez l'adaptateur 12 V / 3 A sur la prise d'entrée à l'arrière du chargeur.</li>
   <li>Branchez l'adaptateur sur une prise secteur 100–240 V, 50/60 Hz.</li>
@@ -137,17 +208,55 @@ En cas de surchauffe, le courant de charge passe à 0 mA jusqu'à ce que la temp
 </ol>
 <h3>5.2 Insérer les accus</h3>
 <p>Les baies sont à glissière, ce qui permet d'accueillir plusieurs formats. Insérez doucement chaque accu en alignant le <strong>+</strong> et le <strong>−</strong> sur les repères de la baie. Le chargeur <strong>détecte automatiquement le type d'accu</strong> (Ni-MH, Ni-Cd ou Li-ion) et affiche sa tension actuelle.</p>
+<figure>
+<svg viewBox="0 0 460 150" role="img" aria-label="Schéma d'une baie à glissière : le contact mobile se règle pour des accus de 32 à 72,5 mm">
+  <rect class="s-body" x="20" y="30" width="420" height="80" rx="10"/>
+  <rect class="s-slot" x="60" y="50" width="340" height="40" rx="20"/>
+  <rect x="48" y="52" width="26" height="36" rx="4" fill="var(--acc)"/>
+  <rect x="332" y="52" width="26" height="36" rx="4" fill="var(--acc)" opacity=".55"/>
+  <path class="s-lead" d="M345 100 H74 M74 94 V106 M345 94 V106" style="stroke-dasharray:0"/>
+  <text class="s-n" x="86" y="46">+ / −</text>
+  <text class="s-t" x="210" y="130" text-anchor="middle">Contact coulissant : accus de 32 mm à 72,5 mm</text>
+  <text class="s-m" x="210" y="18" text-anchor="middle">Repères + et − gravés dans chaque baie</text>
+</svg>
+<figcaption>Fig. 3 – Baie à glissière : faites coulisser le contact mobile à la longueur de l'accu.</figcaption>
+</figure>
 </section>
 
 <section id="modes">
 <h2>6. Modes de fonctionnement</h2>
 <p>Après insertion des accus, appuyez sur <strong>MODE</strong> pour faire défiler les modes. Utilisez <strong>CURRENT</strong> pour ajuster le courant et <strong>SLOT</strong> pour choisir une baie.</p>
 <div class="modes">
-  <div class="box"><h3>CHARGE</h3>Charge l'accu à sa capacité maximale. L'écran affiche la tension, le courant et la capacité accumulée.</div>
-  <div class="box"><h3>DISCHARGE</h3>Décharge l'accu jusqu'à une tension basse de sécurité. Utile pour faire travailler les accus NiCd / NiMH et réduire l'effet mémoire.</div>
-  <div class="box"><h3>TEST</h3>Mesure la capacité réelle de l'accu : charge complète, puis décharge avec mesure de la capacité déchargée, puis recharge. La capacité déchargée est affichée.</div>
-  <div class="box"><h3>QUICK TEST</h3>Mesure la résistance interne de l'accu, pour évaluer rapidement son état de santé.</div>
-  <div class="box"><h3>REFRESH</h3>Enchaîne plusieurs cycles de charge et de décharge pour redonner de la capacité aux accus, surtout les anciens NiCd / NiMH.</div>
+  <article class="card">
+    <div class="card-h"><svg viewBox="0 0 120 50" aria-hidden="true"><path d="M6 44H114M6 44V6" stroke="var(--line)" stroke-width="1.5" fill="none"/><path d="M8 40C40 36 70 18 110 10" class="cv"/></svg><div><h3>CHARGE</h3><span class="tag">Mode de base</span></div></div>
+    <p>Charge l'accu à sa capacité maximale. L'écran affiche la tension, le courant et la capacité accumulée.</p>
+    <ol class="seq"><li>Détection de l'accu</li><li>Charge jusqu'à pleine capacité</li><li>Fin de charge automatique</li></ol>
+    <dl><dt>Courant</dt><dd>200, 300, 500, 700, 1000 mA (1500 et 2000 mA : baie 1 ou 4, voir §9)</dd><dt>Utile pour</dt><dd>Recharger au quotidien. NiCd/NiMH : fin par −ΔV ; Li-ion : CC puis CV.</dd></dl>
+  </article>
+  <article class="card">
+    <div class="card-h"><svg viewBox="0 0 120 50" aria-hidden="true"><path d="M6 44H114M6 44V6" stroke="var(--line)" stroke-width="1.5" fill="none"/><path d="M8 10C40 14 70 32 110 40" class="cv"/></svg><div><h3>DISCHARGE</h3><span class="tag">Décharge contrôlée</span></div></div>
+    <p>Décharge l'accu jusqu'à une tension basse de sécurité, sans le vider complètement.</p>
+    <ol class="seq"><li>Décharge au courant choisi</li><li>Arrêt à une tension basse de sécurité</li></ol>
+    <dl><dt>Courant</dt><dd>200, 300, 500, 700, 1000 mA — défaut 500 mA</dd><dt>Utile pour</dt><dd>Faire travailler les NiCd/NiMH et réduire l'effet mémoire.</dd></dl>
+  </article>
+  <article class="card">
+    <div class="card-h"><svg viewBox="0 0 120 50" aria-hidden="true"><path d="M6 44H114M6 44V6" stroke="var(--line)" stroke-width="1.5" fill="none"/><path d="M8 38L36 10L60 40L84 40L112 10" class="cv" style="stroke-linejoin:round"/></svg><div><h3>TEST</h3><span class="tag">Charge test</span></div></div>
+    <p>Mesure la capacité réelle de l'accu : charge, décharge mesurée, puis recharge.</p>
+    <ol class="seq"><li>Charge complète</li><li>Décharge avec mesure</li><li>Recharge</li><li>Affichage de la capacité déchargée</li></ol>
+    <dl><dt>Courant</dt><dd>Courants de charge et de décharge réglables</dd><dt>Utile pour</dt><dd>Connaître la vraie capacité (mAh) d'un accu, comparer plusieurs accus.</dd></dl>
+  </article>
+  <article class="card">
+    <div class="card-h"><svg viewBox="0 0 120 50" aria-hidden="true"><path d="M6 44H114M6 44V6" stroke="var(--line)" stroke-width="1.5" fill="none"/><path d="M10 25H40L48 10L58 40L68 25H110" class="cv"/></svg><div><h3>QUICK TEST</h3><span class="tag">Rapide</span></div></div>
+    <p>Mesure la résistance interne de l'accu pour évaluer rapidement son état de santé.</p>
+    <ol class="seq"><li>Mesure de la résistance interne</li><li>Résultat affiché en quelques instants</li></ol>
+    <dl><dt>Courant</dt><dd>—</dd><dt>Utile pour</dt><dd>Trier vite des accus sains ou fatigués, sans cycle complet.</dd></dl>
+  </article>
+  <article class="card">
+    <div class="card-h"><svg viewBox="0 0 120 50" aria-hidden="true"><path d="M6 44H114M6 44V6" stroke="var(--line)" stroke-width="1.5" fill="none"/><path d="M8 38L24 12L40 38L56 12L72 38L88 12L108 38" class="cv" style="stroke-linejoin:round"/></svg><div><h3>REFRESH</h3><span class="tag">Régénération</span></div></div>
+    <p>Enchaîne plusieurs cycles de charge et de décharge pour redonner de la capacité.</p>
+    <ol class="seq"><li>Charge</li><li>Décharge</li><li>Répétition de plusieurs cycles</li></ol>
+    <dl><dt>Courant</dt><dd>Courants de charge et de décharge réglables</dd><dt>Utile pour</dt><dd>Accus anciens NiCd / NiMH qui ont perdu de la capacité.</dd></dl>
+  </article>
 </div>
 <div class="box ok">
 <b>Pour une mesure de capacité fiable</b>
@@ -155,30 +264,87 @@ Utilisez TEST ou REFRESH et laissez le cycle complet se terminer.
 </div>
 </section>
 
+<section id="tests">
+<h2>7. Procédures de test pas à pas</h2>
+<div class="box warn">
+<b>Hors manuel Opus</b>
+Cette section regroupe des conseils pratiques. Le manuel ne cite pas les formats 20700 et 21700 : vérifiez que l'accu rentre bien dans la baie sans forcer (la glissière couvre 32 à 72,5 mm). Respectez toujours les valeurs maximales de la fiche du fabricant de l'accu.
+</div>
+<h3>7.1 Accus NiMH (AA / AAA)</h3>
+<ol>
+  <li>Insérez l'accu en respectant la polarité. Le chargeur détecte « NiMH » et affiche la tension.</li>
+  <li>Avec <strong>MODE</strong>, choisissez <strong>TEST</strong> (ou REFRESH pour un vieil accu qui a perdu de la capacité).</li>
+  <li>Avec <strong>CURRENT</strong>, réglez le courant : environ 500 mA pour un AAA, jusqu'à 1 A pour un AA (tableau du §8.2).</li>
+  <li>Laissez le cycle complet se terminer (charge, décharge, recharge). La capacité déchargée s'affiche en mAh.</li>
+  <li>Comparez au chiffre indiqué sur l'accu : en dessous d'environ 80 % de la capacité annoncée, l'accu est usé.</li>
+</ol>
+<h3>7.2 Accus IMR 18650, 20700, 21700 (cigarette électronique)</h3>
+<div class="box warn">
+<b>Sécurité avant tout</b>
+Inspectez l'accu : une enveloppe (wrap) déchirée, un accu cabossé, gonflé, qui chauffe ou qui est tombé sous 2,5 V ne se teste pas. Jetez-le dans un point de collecte. Ne laissez jamais le chargeur sans surveillance pendant un test et posez-le sur une surface non inflammable.
+</div>
+<ol>
+  <li>Vérifiez le <strong>commutateur de tension de fin de charge sur la carte</strong> : <strong>4,20 V</strong> pour les IMR (tableau §8.1). Un mauvais réglage peut endommager l'accu.</li>
+  <li>Insérez l'accu : le chargeur affiche environ 3,x V et « Li-ion ». Vérifiez la tension affichée avant de lancer quoi que ce soit.</li>
+  <li><strong>QUICK TEST</strong> d'abord : mesure la résistance interne. Une valeur qui grimpe d'un test à l'autre signale un accu fatigué, dangereux en vape.</li>
+  <li>Lancez ensuite <strong>TEST</strong> avec un courant de charge raisonnable : 500 mA à 1 A (le manuel donne 1 A pour un 18650).</li>
+  <li>Courant de décharge : 500 mA (valeur par défaut) à 1000 mA maximum. Le résultat est une capacité à faible débit, plus élevée que celle obtenue dans un appareil de vape.</li>
+  <li>Lisez la capacité déchargée et comparez-la à la fiche de l'accu. Un accu qui donne moins de 80 % de sa capacité est à remplacer.</li>
+</ol>
+<div class="table"><table>
+<tr><th>Format</th><th>Dans le manuel ?</th><th>Courant de charge conseillé</th><th>Remarque</th></tr>
+<tr><td>18650 IMR</td><td>Oui</td><td>1 A max</td><td>Réglage de tension 4,20 V.</td></tr>
+<tr><td>20700 IMR</td><td>Non cité</td><td>1 A max (prudence)</td><td>Taille à contrôler dans la glissière.</td></tr>
+<tr><td>21700 IMR</td><td>Non cité</td><td>1 A max (prudence)</td><td>70 mm de long : doit entrer sans forcer.</td></tr>
+<tr><td>NiMH AA / AAA</td><td>Oui</td><td>1 A / 0,5 A</td><td>TEST ou REFRESH.</td></tr>
+</table></div>
+<div class="box">
+<b>Limite de la mesure</b>
+Ce chargeur teste la capacité à faible débit et la résistance interne. Il ne mesure pas le courant de décharge maximal d'un accu (CDR). Pour de la vape à forte puissance, fiez-vous à la fiche du fabricant.
+</div>
+</section>
+
 <section id="compat">
-<h2>7. Compatibilité des accus</h2>
-<h3>7.1 Types et tensions</h3>
+<h2>8. Compatibilité des accus</h2>
+<h3>8.1 Types et tensions</h3>
 <p>Le chargeur gère les accus <strong>Ni-MH, Ni-Cd et Li-ion</strong>. Pour certaines chimies Li-ion (Li-FePO₄, Li-ion haute tension), un commutateur situé sur la carte permet de choisir la tension de fin de charge : <strong>3,7 V, 4,2 V ou 4,35 V</strong>.</p>
 <div class="box warn">
 <b>Attention</b>
 Un mauvais choix de tension de fin de charge peut endommager l'accu. Vérifiez la tension indiquée par le fabricant de l'accu avant de modifier ce commutateur.
 </div>
-<h3>7.2 Formats</h3>
-<ul>
-  <li>NiCd / NiMH : AA (LR6) et AAA (LR3).</li>
-  <li>Li-ion 3,7 V : 10440, 14500, 16340, 17335, 17500, 18490, 17670, 18650, 26650.</li>
-</ul>
+<div class="table"><table>
+<tr><th>Type</th><th>Chimie</th><th>Tension nominale</th><th>Tension de charge</th><th>Pris en charge</th><th>Commutateur</th></tr>
+<tr><td>ICR</td><td>LiCoO₂</td><td>3,75 V</td><td>4,35 V</td><td>Peut-être</td><td>4,35 V</td></tr>
+<tr><td>ICR</td><td>LiCoO₂</td><td>3,6 / 3,7 V</td><td>4,2 V</td><td>Oui</td><td>4,20 V</td></tr>
+<tr><td>IMR</td><td>LiMn</td><td>3,6 / 3,7 V</td><td>4,2 V</td><td>Oui</td><td>4,20 V</td></tr>
+<tr><td>IFR</td><td>LiFePO₄</td><td>3,2 / 3,3 V</td><td>3,5 / 3,6 V</td><td>Peut-être</td><td>3,7 V</td></tr>
+<tr><td>NiMH</td><td>NiMH</td><td>1,2 V</td><td>—</td><td>Oui</td><td>—</td></tr>
+<tr><td>NiCd</td><td>NiCd</td><td>1,2 V</td><td>—</td><td>Oui</td><td>—</td></tr>
+</table></div>
+<p style="color:var(--mut);font-size:.9rem">« Peut-être » : fonctionnement possible, mais à vérifier avec la fiche de l'accu avant usage.</p>
+<h3>8.2 Formats</h3>
+<p>Aucune cale n'est nécessaire pour les formats ci-dessous. La colonne « courant » est le courant de charge indiqué dans le tableau du manuel.</p>
+<div class="table"><table>
+<tr><th>Format</th><th>Courant</th><th>Format</th><th>Courant</th></tr>
+<tr><td>26650</td><td>2 A</td><td>16340 / CR123</td><td>0,3 A</td></tr>
+<tr><td>26500</td><td>2 A</td><td>14650</td><td>0,7 A</td></tr>
+<tr><td>18650</td><td>1 A</td><td>14500</td><td>0,5 A</td></tr>
+<tr><td>18500</td><td>1 A</td><td>10440</td><td>0,2 A</td></tr>
+<tr><td>18350</td><td>0,7 A</td><td>C</td><td>2 A</td></tr>
+<tr><td>AA</td><td>1 A</td><td>AAA</td><td>0,5 A</td></tr>
+</table></div>
+<p>Autres formats Li-ion 3,7 V cités : 17335, 17500, 18490, 17670.</p>
 </section>
 
 <section id="courants">
-<h2>8. Choix des courants et gestion de la chaleur</h2>
-<h3>8.1 Choisir le courant</h3>
+<h2>9. Choix des courants et gestion de la chaleur</h2>
+<h3>9.1 Choisir le courant</h3>
 <p>Les courants de charge et de décharge se règlent manuellement. En règle générale, préférez un courant faible pour les petits accus et un courant plus élevé pour les accus de forte capacité.</p>
 <div class="box warn">
 <b>1500 mA et 2000 mA</b>
 Ces courants de charge ne sont disponibles qu'avec un accu seul placé dans la <strong>baie 1</strong> ou la <strong>baie 4</strong>.
 </div>
-<h3>8.2 Chaleur</h3>
+<h3>9.2 Chaleur</h3>
 <ul>
   <li>Le ventilateur se déclenche quand la température interne ou celle de l'accu dépasse <strong>40 °C</strong>.</li>
   <li>Si la température de l'accu dépasse <strong>60 °C</strong>, la protection thermique s'active : le courant passe à 0 mA et le mode en cours est interrompu <strong>sur les 4 baies</strong>.</li>
@@ -188,7 +354,7 @@ Ces courants de charge ne sont disponibles qu'avec un accu seul placé dans la <
 </section>
 
 <section id="entretien">
-<h2>9. Entretien</h2>
+<h2>10. Entretien</h2>
 <ul>
   <li><strong>Nettoyage :</strong> débranchez le chargeur, puis essuyez-le avec un chiffon doux et sec. Pas de produit abrasif ni de solvant.</li>
   <li><strong>Rangement :</strong> dans un endroit frais et sec, à l'abri du soleil direct et des températures extrêmes.</li>
@@ -197,7 +363,7 @@ Ces courants de charge ne sont disponibles qu'avec un accu seul placé dans la <
 </section>
 
 <section id="depannage">
-<h2>10. Dépannage</h2>
+<h2>11. Dépannage</h2>
 <div class="table"><table>
 <tr><th>Problème</th><th>Que faire</th></tr>
 <tr><td>Le chargeur ne s'allume pas</td><td>Vérifiez que l'adaptateur est bien branché au chargeur et à la prise, et que la prise est alimentée.</td></tr>
@@ -209,7 +375,7 @@ Ces courants de charge ne sont disponibles qu'avec un accu seul placé dans la <
 </section>
 
 <section id="garantie">
-<h2>11. Garantie et assistance</h2>
+<h2>12. Garantie et assistance</h2>
 <p>Pour le service après-vente et la garantie, assurez-vous d'avoir acheté l'appareil auprès du magasin officiel de la marque. Les conditions dépendent de la politique du vendeur agréé au moment de l'achat. Pour toute aide complémentaire, reportez-vous aux coordonnées fournies avec l'achat ou à la page d'assistance officielle Opus.</p>
 </section>
 
