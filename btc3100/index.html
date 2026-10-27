@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mode d'emploi Opus BT-C3100 V2.2</title>
+<meta name="description" content="Mode d'emploi en français du chargeur-analyseur universel Opus BT-C3100 V2.2 : sécurité, modes, courants, compatibilité, dépannage.">
+<meta name="robots" content="index,follow">
+<style>
+:root{--bg:#fff;--fg:#1d2330;--mut:#5b6475;--card:#f4f6fa;--line:#dde2ea;--acc:#d9580b;--warn-bg:#fff3e6;--warn-line:#e8a15c;--ok-bg:#eaf6ee}
+@media (prefers-color-scheme:dark){:root{--bg:#14171d;--fg:#e8ebf1;--mut:#a0a8b8;--card:#1d222b;--line:#2c3340;--acc:#ff8a3d;--warn-bg:#2b2116;--warn-line:#8a5a2b;--ok-bg:#16261c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 64px}
+header{padding:40px 0 16px;border-bottom:3px solid var(--acc)}
+h1{margin:0 0 4px;font-size:clamp(1.6rem,5vw,2.2rem);line-height:1.2}
+header p{margin:0;color:var(--mut)}
+h2{margin:40px 0 12px;font-size:1.4rem;border-left:5px solid var(--acc);padding-left:10px;scroll-margin-top:12px}
+h3{margin:24px 0 8px;font-size:1.1rem}
+nav{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:24px 0}
+nav strong{display:block;margin-bottom:6px}
+nav ol{margin:0;padding-left:22px;columns:2;column-gap:28px}
+@media(max-width:560px){nav ol{columns:1}}
+a{color:var(--acc)}
+.table{overflow-x:auto}
+table{border-collapse:collapse;width:100%;margin:8px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.box{border-radius:10px;padding:12px 16px;margin:16px 0;border:1px solid var(--line);background:var(--card)}
+.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.ok{background:var(--ok-bg)}
+.box b:first-child{display:block}
+.modes{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.modes .box{margin:0}
+.modes h3{margin-top:0;color:var(--acc)}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
+@media print{nav{display:none}body{font-size:11pt}h2{break-after:avoid}.box,tr{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Opus BT-C3100 V2.2</h1>
+  <p>Mode d'emploi en français — chargeur-analyseur universel 4 baies</p>
+</header>
+
+<nav aria-label="Sommaire">
+  <strong>Sommaire</strong>
+  <ol>
+    <li><a href="#intro">Présentation</a></li>
+    <li><a href="#securite">Consignes de sécurité</a></li>
+    <li><a href="#apercu">Vue d'ensemble</a></li>
+    <li><a href="#specs">Caractéristiques techniques</a></li>
+    <li><a href="#demarrage">Mise en service</a></li>
+    <li><a href="#modes">Modes de fonctionnement</a></li>
+    <li><a href="#compat">Compatibilité des accus</a></li>
+    <li><a href="#courants">Choix des courants et chaleur</a></li>
+    <li><a href="#entretien">Entretien</a></li>
+    <li><a href="#depannage">Dépannage</a></li>
+    <li><a href="#garantie">Garantie et assistance</a></li>
+  </ol>
+</nav>
+
+<section id="intro">
+<h2>1. Présentation</h2>
+<p>L'Opus BT-C3100 V2.2 est un chargeur universel évolué pour accus rechargeables. Il dispose de <strong>quatre baies indépendantes</strong>, d'un écran LCD rétroéclairé et de plusieurs modes pour <strong>charger, décharger, tester et rafraîchir</strong> vos accus.</p>
+<h3>Points forts</h3>
+<ul>
+  <li>4 baies indépendantes, utilisables en même temps.</li>
+  <li>Écran LCD rétroéclairé : tension, courant de charge/décharge, durée et capacité.</li>
+  <li>Courants de charge sélectionnables : 200, 300, 500, 700, 1000, 1500 et 2000 mA.</li>
+  <li>Courants de décharge sélectionnables : 200, 300, 500, 700 et 1000 mA (Li-ion uniquement). Valeur par défaut : 500 mA.</li>
+  <li>Fin de charge par détection de chute de tension (−ΔV) pour les NiCd / NiMH.</li>
+  <li>Charge à courant constant puis tension constante (CC/CV) pour les Li-ion.</li>
+  <li>Protections : surchauffe, court-circuit, surcharge, décharge excessive.</li>
+  <li>Ventilateur de refroidissement.</li>
+</ul>
+</section>
+
+<section id="securite">
+<h2>2. Consignes de sécurité</h2>
+<div class="box warn">
+<b>À lire avant toute utilisation</b>
+Le non-respect de ces consignes peut provoquer un choc électrique, un incendie ou des blessures graves.
+</div>
+<ul>
+  <li>Utilisez <strong>uniquement l'adaptateur secteur fourni</strong>.</li>
+  <li>Appareil prévu pour un <strong>usage en intérieur</strong> uniquement.</li>
+  <li>Respectez la <strong>polarité</strong> (+/−) lors de l'insertion des accus.</li>
+  <li><strong>Ne tentez jamais de recharger des piles non rechargeables.</strong></li>
+  <li>Tenez le chargeur et les accus à l'écart de l'eau, de l'humidité et des fortes chaleurs.</li>
+  <li>Ne démontez pas et ne modifiez pas le chargeur.</li>
+</ul>
+<div class="box">
+<b>Protection contre la surchauffe</b>
+En cas de surchauffe, le courant de charge passe à 0 mA jusqu'à ce que la température redescende sous 40 °C.
+</div>
+</section>
+
+<section id="apercu">
+<h2>3. Vue d'ensemble</h2>
+<p>Le chargeur est doté de quatre baies indépendantes. L'écran LCD intégré affiche en temps réel les informations de chaque baie. Un ventilateur intégré limite l'échauffement de l'appareil pendant le fonctionnement.</p>
+<p>Trois boutons servent à piloter l'appareil :</p>
+<div class="table"><table>
+<tr><th>Bouton</th><th>Rôle</th></tr>
+<tr><td><strong>MODE</strong></td><td>Fait défiler les modes de fonctionnement.</td></tr>
+<tr><td><strong>CURRENT</strong></td><td>Règle le courant du mode sélectionné.</td></tr>
+<tr><td><strong>SLOT</strong></td><td>Sélectionne une baie pour lui appliquer des réglages propres.</td></tr>
+</table></div>
+</section>
+
+<section id="specs">
+<h2>4. Caractéristiques techniques</h2>
+<div class="table"><table>
+<tr><th>Caractéristique</th><th>Valeur</th></tr>
+<tr><td>Tension d'entrée</td><td>100–240 V CA, 50/60 Hz</td></tr>
+<tr><td>Sortie de l'adaptateur</td><td>12 V CC, 3,0 A</td></tr>
+<tr><td>Courants de charge</td><td>200, 300, 500, 700, 1000, 1500, 2000 mA</td></tr>
+<tr><td>Courants de décharge</td><td>200, 300, 500, 700, 1000 mA (Li-ion uniquement)</td></tr>
+<tr><td>Capacité de charge maximale</td><td>Jusqu'à 20 000 mAh</td></tr>
+<tr><td>Température de fonctionnement</td><td>0 à 40 °C</td></tr>
+<tr><td>Écart de tension</td><td>0,03 V max à 4,2 V</td></tr>
+<tr><td>Écart de courant</td><td>5 % max</td></tr>
+<tr><td>Dimensions (L × l × H)</td><td>14,4 × 9,8 × 3,9 cm</td></tr>
+<tr><td>Poids</td><td>environ 235 g (8,3 oz)</td></tr>
+</table></div>
+</section>
+
+<section id="demarrage">
+<h2>5. Mise en service</h2>
+<h3>5.1 Brancher l'alimentation</h3>
+<ol>
+  <li>Branchez l'adaptateur 12 V / 3 A sur la prise d'entrée à l'arrière du chargeur.</li>
+  <li>Branchez l'adaptateur sur une prise secteur 100–240 V, 50/60 Hz.</li>
+  <li>L'écran s'allume : le chargeur est prêt.</li>
+</ol>
+<h3>5.2 Insérer les accus</h3>
+<p>Les baies sont à glissière, ce qui permet d'accueillir plusieurs formats. Insérez doucement chaque accu en alignant le <strong>+</strong> et le <strong>−</strong> sur les repères de la baie. Le chargeur <strong>détecte automatiquement le type d'accu</strong> (Ni-MH, Ni-Cd ou Li-ion) et affiche sa tension actuelle.</p>
+</section>
+
+<section id="modes">
+<h2>6. Modes de fonctionnement</h2>
+<p>Après insertion des accus, appuyez sur <strong>MODE</strong> pour faire défiler les modes. Utilisez <strong>CURRENT</strong> pour ajuster le courant et <strong>SLOT</strong> pour choisir une baie.</p>
+<div class="modes">
+  <div class="box"><h3>CHARGE</h3>Charge l'accu à sa capacité maximale. L'écran affiche la tension, le courant et la capacité accumulée.</div>
+  <div class="box"><h3>DISCHARGE</h3>Décharge l'accu jusqu'à une tension basse de sécurité. Utile pour faire travailler les accus NiCd / NiMH et réduire l'effet mémoire.</div>
+  <div class="box"><h3>TEST</h3>Mesure la capacité réelle de l'accu : charge complète, puis décharge avec mesure de la capacité déchargée, puis recharge. La capacité déchargée est affichée.</div>
+  <div class="box"><h3>QUICK TEST</h3>Mesure la résistance interne de l'accu, pour évaluer rapidement son état de santé.</div>
+  <div class="box"><h3>REFRESH</h3>Enchaîne plusieurs cycles de charge et de décharge pour redonner de la capacité aux accus, surtout les anciens NiCd / NiMH.</div>
+</div>
+<div class="box ok">
+<b>Pour une mesure de capacité fiable</b>
+Utilisez TEST ou REFRESH et laissez le cycle complet se terminer.
+</div>
+</section>
+
+<section id="compat">
+<h2>7. Compatibilité des accus</h2>
+<h3>7.1 Types et tensions</h3>
+<p>Le chargeur gère les accus <strong>Ni-MH, Ni-Cd et Li-ion</strong>. Pour certaines chimies Li-ion (Li-FePO₄, Li-ion haute tension), un commutateur situé sur la carte permet de choisir la tension de fin de charge : <strong>3,7 V, 4,2 V ou 4,35 V</strong>.</p>
+<div class="box warn">
+<b>Attention</b>
+Un mauvais choix de tension de fin de charge peut endommager l'accu. Vérifiez la tension indiquée par le fabricant de l'accu avant de modifier ce commutateur.
+</div>
+<h3>7.2 Formats</h3>
+<ul>
+  <li>NiCd / NiMH : AA (LR6) et AAA (LR3).</li>
+  <li>Li-ion 3,7 V : 10440, 14500, 16340, 17335, 17500, 18490, 17670, 18650, 26650.</li>
+</ul>
+</section>
+
+<section id="courants">
+<h2>8. Choix des courants et gestion de la chaleur</h2>
+<h3>8.1 Choisir le courant</h3>
+<p>Les courants de charge et de décharge se règlent manuellement. En règle générale, préférez un courant faible pour les petits accus et un courant plus élevé pour les accus de forte capacité.</p>
+<div class="box warn">
+<b>1500 mA et 2000 mA</b>
+Ces courants de charge ne sont disponibles qu'avec un accu seul placé dans la <strong>baie 1</strong> ou la <strong>baie 4</strong>.
+</div>
+<h3>8.2 Chaleur</h3>
+<ul>
+  <li>Le ventilateur se déclenche quand la température interne ou celle de l'accu dépasse <strong>40 °C</strong>.</li>
+  <li>Si la température de l'accu dépasse <strong>60 °C</strong>, la protection thermique s'active : le courant passe à 0 mA et le mode en cours est interrompu <strong>sur les 4 baies</strong>.</li>
+  <li>Le fonctionnement reprend lorsque la température redescend sous 40 °C.</li>
+  <li>Laissez de l'espace autour du chargeur pour assurer une bonne ventilation.</li>
+</ul>
+</section>
+
+<section id="entretien">
+<h2>9. Entretien</h2>
+<ul>
+  <li><strong>Nettoyage :</strong> débranchez le chargeur, puis essuyez-le avec un chiffon doux et sec. Pas de produit abrasif ni de solvant.</li>
+  <li><strong>Rangement :</strong> dans un endroit frais et sec, à l'abri du soleil direct et des températures extrêmes.</li>
+  <li><strong>Accus :</strong> retirez-les du chargeur dès que l'opération est terminée.</li>
+</ul>
+</section>
+
+<section id="depannage">
+<h2>10. Dépannage</h2>
+<div class="table"><table>
+<tr><th>Problème</th><th>Que faire</th></tr>
+<tr><td>Le chargeur ne s'allume pas</td><td>Vérifiez que l'adaptateur est bien branché au chargeur et à la prise, et que la prise est alimentée.</td></tr>
+<tr><td>Accu non détecté</td><td>Vérifiez l'orientation (+/−) et que l'accu est d'un type rechargeable pris en charge.</td></tr>
+<tr><td>Surchauffe</td><td>Vérifiez que le ventilateur n'est pas obstrué et réduisez le courant si possible. Le chargeur s'arrête seul au-delà des limites de température.</td></tr>
+<tr><td>Accu très déchargé</td><td>Le chargeur peut récupérer certains accus profondément déchargés. Si la tension est trop basse, il peut lancer une charge d'entretien (trickle) avant la charge normale.</td></tr>
+<tr><td>Capacité mesurée inexacte</td><td>Utilisez TEST ou REFRESH et laissez le cycle complet se terminer.</td></tr>
+</table></div>
+</section>
+
+<section id="garantie">
+<h2>11. Garantie et assistance</h2>
+<p>Pour le service après-vente et la garantie, assurez-vous d'avoir acheté l'appareil auprès du magasin officiel de la marque. Les conditions dépendent de la politique du vendeur agréé au moment de l'achat. Pour toute aide complémentaire, reportez-vous aux coordonnées fournies avec l'achat ou à la page d'assistance officielle Opus.</p>
+</section>
+
+<footer>
+  <p>Traduction et mise en page en français du manuel d'instructions Opus BT-C3100 V2.2 (modèle OPUS US126488801M). Document non officiel : en cas de doute, la documentation du fabricant fait foi. Marque Opus : propriété de ses détenteurs.</p>
+</footer>
+
+</div>
+</body>
+</html>
